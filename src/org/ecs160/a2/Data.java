@@ -1,3 +1,4 @@
+package org.ecs160.a2;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -11,14 +12,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class TM {
+public class Data {
     DataBase db = new DataBase();
     TaskManager taskManager = new TaskManager();
 
     private void startProgram(String[] args) {
         getInput(args);
     }
-    // input from the user, its type it can change later on 
+    // input from the user, its type it can change later on
     private void getInput(String[] args) {
         final String type = args[0];
         switch (type) {
@@ -57,7 +58,7 @@ public class TM {
         } catch (Exception e) {
             System.out.println("please provide a task name");
         }
-        
+
     }
 
     private void stop(String[] args) {
@@ -72,18 +73,18 @@ public class TM {
 
     private void describe(String[] args) {
         final String taskName = args[1];
-        final String description = args[2]; 
+        final String description = args[2];
         boolean isDescriptionAndSize =false;
         try {
             if (args[3] != null) {
                 String taskSize = args[3];
                 taskSize = taskSize.toUpperCase();
                 this.db.saveDescriptionAndSizeTask(taskName,
-                 description, taskSize);
-                 isDescriptionAndSize = true;
+                        description, taskSize);
+                isDescriptionAndSize = true;
             }
         } catch (Exception e) {
-          
+
         }
         if (!isDescriptionAndSize)
             this.db.saveDescriptionTask(taskName, description);
@@ -93,10 +94,10 @@ public class TM {
         String taskType = null;
         try {
             taskType = args[1];
-        } catch (Exception e) { 
-           
+        } catch (Exception e) {
+
         }
-        
+
         if (taskType == null)
             this.taskManager.summaryTotal();
         else if (isInputOfTypeSize(taskType))
@@ -131,14 +132,14 @@ public class TM {
     private boolean isInputOfTypeSize(String taskType) {
         taskType = taskType.toUpperCase();
         if (taskType.equals("S") || taskType.equals("M")
-         || taskType.equals("L") || taskType.equals("XL"))
+                || taskType.equals("L") || taskType.equals("XL"))
             return true;
         else
             return false;
     }
 
     public static void main(String[] args) {
-        TM tm = new TM();
+        Data tm = new Data();
         tm.startProgram(args);
     }
 
@@ -171,31 +172,31 @@ class TaskManager {
             System.out.println("No such task exist");
         }
         else  {
-        this.output(task);
-       } 
+            this.output(task);
+        }
     }
 
     public void summaryBySize(String size) {
         final List<Task> taskSizeList = getTaskBySize(size);
-        List<Date> maxTimeList = new ArrayList<Date>();
-        List<Date> minTimeList = new ArrayList<Date>();
+        List<Date>       maxTimeList  = new ArrayList<Date>();
+        List<Date>       minTimeList  = new ArrayList<Date>();
         long totalTime = 0;
         for (final Task task: taskSizeList) {
-            this.output(task); 
+            this.output(task);
             maxTimeList.add(task.getMaxDuration());
             minTimeList.add(task.getMinDuration());
             totalTime = totalTime + task.getTotalDuration().getTime();
         }
         final long avgTime = totalTime / taskSizeList.size();
-        this.outputBySize(maxTimeList, minTimeList, avgTime); 
+        this.outputBySize(maxTimeList, minTimeList, avgTime);
     }
 
 
 
-	/********************** PRIVATE **********************/
+    /********************** PRIVATE **********************/
 
     private void buildEachTask(List<TaskData> TaskDataList) {
-        
+
         for (final TaskData taskData: TaskDataList) {
             final Task task = getTaskFromName(taskData.name);
             if (task == null) {
@@ -261,17 +262,17 @@ class TaskManager {
     }
 
     // this give a detailed description of of each task, its
-    // TOTAL, MIN, MAX and average time spend on each task 
+    // TOTAL, MIN, MAX and average time spend on each task
     private void output(Task task) {
         System.out.print(
-        task.name + ":\n" + 
-        "Total time = " + durationToTimePassed(task.getTotalDuration()) + "\n" + 
-        "Min time = " + durationToTimePassed(task.getMinDuration()) + "\n" + 
-        "Max time = " + durationToTimePassed(task.getMaxDuration()) + "\n" + 
-        "Avg time = " + durationToTimePassed(task.getAvgDuration()) + "\n" + 
-        "task size = " + task.size + "\n" + 
-        "task description = " + task.description + "\n" + 
-        "\n"); 
+                task.name + ":\n" +
+                        "Total time = " + durationToTimePassed(task.getTotalDuration()) + "\n" +
+                        "Min time = " + durationToTimePassed(task.getMinDuration()) + "\n" +
+                        "Max time = " + durationToTimePassed(task.getMaxDuration()) + "\n" +
+                        "Avg time = " + durationToTimePassed(task.getAvgDuration()) + "\n" +
+                        "task size = " + task.size + "\n" +
+                        "task description = " + task.description + "\n" +
+                        "\n");
     }
     private void outputBySize(List<Date> maxTimeList, List<Date> minTimeList, long avgMilisecondsTime) {
         Date avgTime = new Date(avgMilisecondsTime);
@@ -279,12 +280,12 @@ class TaskManager {
         Date minTime = getMinTime(minTimeList);
 
         System.out.print(
-        "TOTAL for this size" + ":\n" + 
-        "Min time = " + durationToTimePassed(minTime) + "\n" + 
-        "Max time = " + durationToTimePassed(maxTime) + "\n" + 
-        "Avg time = " + durationToTimePassed(avgTime) + "\n" + 
-        "\n");
-	}
+                "TOTAL for this size" + ":\n" +
+                        "Min time = " + durationToTimePassed(minTime) + "\n" +
+                        "Max time = " + durationToTimePassed(maxTime) + "\n" +
+                        "Avg time = " + durationToTimePassed(avgTime) + "\n" +
+                        "\n");
+    }
 
     /******* helpers *******/
     public Task getTaskFromName(String taskName) {
@@ -293,7 +294,7 @@ class TaskManager {
         }
         return null;
     }
-    
+
     public List<Task> getTaskBySize(String size) {
         List<Task> tempList = new ArrayList<Task>();
         for(Task task : taskList) {
@@ -306,22 +307,22 @@ class TaskManager {
         DateFormat format = new SimpleDateFormat("mm:ss");
         return format.format(time);
     }
-    
+
     private Date getMinTime(List<Date> minTimeList) {
         List<Date> sorted = minTimeList;
         Collections.sort(sorted, (a, b) -> a.compareTo(b));
         return sorted.get(0);
-	}
+    }
 
-	private Date getMaxTime(List<Date> maxTimeList) {
+    private Date getMaxTime(List<Date> maxTimeList) {
         List<Date> sorted = maxTimeList;
         Collections.sort(sorted, (a, b) -> a.compareTo(b));
         return sorted.get(sorted.size() -1);
-	}
+    }
 
 }
 
-// A generic DB so in the future we can use a cloud DB 
+// A generic DB so in the future we can use a cloud DB
 // even use local and cloud at the same time
 class DataBase {
     LocalStorage localStorage;
@@ -339,7 +340,7 @@ class DataBase {
         Task task = taskManager.getTaskFromName(taskName);
         if (task == null)
             localStorage.saveStartTask(taskName);
-        else if (!task.isRunning) 
+        else if (!task.isRunning)
             localStorage.saveStartTask(taskName);
         else System.out.println("task already runing");
     }
@@ -347,9 +348,9 @@ class DataBase {
     public void saveStopTask(String taskName) {
         TaskManager taskManager = new TaskManager();
         Task task = taskManager.getTaskFromName(taskName);
-        if (task.isRunning) 
+        if (task.isRunning)
             localStorage.saveStopTask(taskName);
-        else System.out.println("task already stoped");    
+        else System.out.println("task already stoped");
     }
 
     public void saveDescriptionTask(String taskName, String description) {
@@ -359,12 +360,12 @@ class DataBase {
     public void saveSizeTask(String taskName, String size) {
         localStorage.saveSizeTask(taskName, size);
     }
-    
+
     public void saveDescriptionAndSizeTask(String taskName,
-    String description, String size) {
+                                           String description, String size) {
         localStorage.saveDescriptionAndSizeTask(taskName, description, size);
     }
-    
+
     public void saveRenameTask(String oldName, String newName) {
         localStorage.saveRenameTask(oldName, newName);
     }
@@ -374,26 +375,26 @@ class DataBase {
     }
 }
 
-// This class saves the data localy 
+// This class saves the data localy
 class LocalStorage {
 
     final String fileName = "db.txt";
-    Date date = new Date();  
+    Date date = new Date();
     SimpleDateFormat formatter =
-     new SimpleDateFormat("dd-M-yyyy hh:mm:ss"); 
-    private String strDate = formatter.format(date);  
+            new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    private String strDate = formatter.format(date);
     private FileWriter myWriter;
     private File file;
     private Scanner scanner;
-    
+
     LocalStorage() {
         try {
             file = new File(fileName);
             myWriter = new FileWriter(fileName, true);
             scanner = new Scanner(file);
-		} catch (IOException e) {
-			System.out.println("File not found");
-		}
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
     }
 
     public List<TaskData> queryTaskData() {
@@ -411,84 +412,84 @@ class LocalStorage {
         try {
             myWriter.write(taskName + ", started at ," + strDate +"\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
 
     public void saveStopTask(String taskName) {
         try {
             myWriter.write(taskName + ", stoped at ," + strDate +"\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
 
     public void saveDescriptionTask(String taskName, String description) {
         try {
             myWriter.write(
-                taskName + ", description ,"
-                + description + ", at ,"
-                + strDate + "\n");
+                    taskName + ", description ,"
+                            + description + ", at ,"
+                            + strDate + "\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
     public void saveDescriptionAndSizeTask(String taskName,
-     String description, String size) {
+                                           String description, String size) {
         try {
             myWriter.write(
-                taskName + ", description ,"
-                + description + ", at ,"
-                + strDate + "\n");
+                    taskName + ", description ,"
+                            + description + ", at ,"
+                            + strDate + "\n");
 
             myWriter.write(
                     taskName + "," + " size ,"
-                    + size + ", at ," + strDate + "\n");
+                            + size + ", at ," + strDate + "\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
 
     public void saveSizeTask(String taskName, String size) {
         try {
             myWriter.write(
-                taskName + "," + " size ,"
-                + size + ", at ," + strDate + "\n");
+                    taskName + "," + " size ,"
+                            + size + ", at ," + strDate + "\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
 
     public void saveRenameTask(String oldName, String newName) {
         try {
             myWriter.write(
-                oldName + ", renamed to ,"
-                + newName + ", at ," 
-                + strDate + "\n");
+                    oldName + ", renamed to ,"
+                            + newName + ", at ,"
+                            + strDate + "\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
 
     public void saveDeletionTask(String taskName) {
         try {
             myWriter.write(
-                taskName + ", deleted at ,"
-                + ", at ," + strDate + "\n");
+                    taskName + ", deleted at ,"
+                            + ", at ," + strDate + "\n");
             myWriter.close();
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e);
-          }
+        }
     }
 }
 
-// each line of data that is saved in the DB that represents a some 
+// each line of data that is saved in the DB that represents a some
 // task data
 class TaskData {
     String name;
@@ -513,7 +514,7 @@ class TaskData {
         try {
             this.parseData(data);
         } catch (ParseException e) {
-           System.err.println(e);
+            System.err.println(e);
         }
     }
 
@@ -528,13 +529,13 @@ class TaskData {
             startTime = parseTime(time);
             savedTime = startTime;
             this.type.isStart = true;
-        } 
+        }
         else if (stringType.contains("stoped")) {
             String time = splitStr[2];
             endTime = parseTime(time);
             savedTime = endTime;
             this.type.isEnd = true;
-        } 
+        }
         else if (stringType.contains("description")) {
             this.type.isDescription = true;
             String descripString = splitStr[2];
@@ -543,43 +544,43 @@ class TaskData {
                 if (sizeString.contains("size")) {
                     size = sizeString;
                     this.type.isSize = true;
-                } 
+                }
             } catch (Exception e) {
-    
+
             }
             description = descripString;
-        } 
+        }
 
         else if (stringType.contains("size")) {
             String sizeString = splitStr[2];
             size = sizeString;
             this.type.isSize = true;
-        } 
+        }
 
         else if (stringType.contains("deleted")) {
             this.type.isDeleted = true;
-        } 
+        }
 
         else if (stringType.contains("rename")) {
             this.type.nameChanged = true;
             String reName = splitStr[2];
             newName = reName;
-        } 
+        }
     }
 
     /******* private helpers *******/
     private Date parseTime(String time) throws ParseException {
         DateFormat format =
-         new SimpleDateFormat("dd-M-yyyy hh:mm:ss"); 
+                new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         return format.parse(time);
     }
 
 }
 
 
-// the data that each task can have 
+// the data that each task can have
 class Task {
-    
+
     String name;
     String description = "No decription";
     boolean isRunning = false;
@@ -634,11 +635,11 @@ class Task {
     public Date getTotalDuration() {
         long totalTime = 0;
         for (Date time : durationList) {
-            totalTime = totalTime + time.getTime(); 
+            totalTime = totalTime + time.getTime();
         }
         return new Date(totalTime);
     }
-    
+
     public Date getMinDuration() {
         List<Date> sorted = durationList;
         Collections.sort(sorted, (a, b) -> a.compareTo(b));
@@ -654,7 +655,7 @@ class Task {
     public Date getAvgDuration() {
         long totalTime = 0, avgTime = 0;
         for (Date time : durationList) {
-            totalTime = totalTime + time.getTime(); 
+            totalTime = totalTime + time.getTime();
         }
         avgTime = totalTime / durationList.size();
         return new Date(avgTime);
@@ -662,7 +663,7 @@ class Task {
 
 
     /******* private helpers *******/
-        
+
     private void startTask(String name, Date date) {
         initiateOnlyFirstCreation(name, date);
         initiateTaskDuration(date);
@@ -703,7 +704,7 @@ class Task {
 class TimeWindow {
     private Date start;
     private Date end;
-     
+
     public void start(Date date) {
         this.start = date;
     }
@@ -713,7 +714,7 @@ class TimeWindow {
 
     public Date getDuration () {
         return new Date(this.end.getTime()
-        - this.start.getTime());
+                - this.start.getTime());
     }
 
     public Date getStart() {
