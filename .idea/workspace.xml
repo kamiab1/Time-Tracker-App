@@ -2,35 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da1e355b-e823-4a32-b626-f91cf58df804" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Codename_One_Libraries.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Time-Tracker-App.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Versions.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/codenameone_kotlin.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/codenameone_settings.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/impl/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manifest.mf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/build-impl.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/genfiles.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/nativej2me.res" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/private/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/private/private.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/project.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nbproject/project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/Business.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/UI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/theme.res" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TM.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
