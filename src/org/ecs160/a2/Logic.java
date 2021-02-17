@@ -1,4 +1,4 @@
 package org.ecs160.a2;
 
-public class Business {
+public class Logic {
 }

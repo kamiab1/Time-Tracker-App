@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da1e355b-e823-4a32-b626-f91cf58df804" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+    <list default="true" id="310a0d7e-0f34-4f35-bb4b-a7d9d197896d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Versions.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Versions.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codenameone_kotlin.properties" beforeDir="false" afterPath="$PROJECT_DIR$/codenameone_kotlin.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/codenameone_settings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/codenameone_settings.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/build-impl.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nbproject/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/Business.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ecs160/a2/AppMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,27 +32,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1ocphgB15g03klWfEYDrvnCkAQl" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="1ocrJyvECMHL1KFlGvgAxuxPaYk" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="restartRequiresConfirmation" value="false" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
     <configuration name="Run in Device Simulator" type="#com.codename1.plugin.intellij.run.CodenameOneConfigurationType" factoryName="Codename One" temporary="true">
-      <setting name="mainClass" value="org.ecs160.a2.Main" />
+      <setting name="mainClass" value="org.ecs160.a2.AppMain" />
       <setting name="vmparams" value="" />
       <setting name="workDir" value="" />
       <setting name="debug" value="false" />
@@ -59,37 +66,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="da1e355b-e823-4a32-b626-f91cf58df804" name="Default Changelist" comment="" />
-      <created>1613595853277</created>
+      <changelist id="310a0d7e-0f34-4f35-bb4b-a7d9d197896d" name="Default Changelist" comment="" />
+      <created>1613596651277</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1613595853277</updated>
+      <updated>1613596651277</updated>
     </task>
     <servers />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="293" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1613595901758">
-      <screen x="0" y="25" width="1680" height="959" />
-    </state>
-    <state x="293" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1680.959@0.25.1680.959" timestamp="1613595901758" />
-    <state width="984" height="239" key="GridCell.Tab.0.bottom" timestamp="1613596153943">
-      <screen x="0" y="25" width="1680" height="959" />
-    </state>
-    <state width="984" height="239" key="GridCell.Tab.0.bottom/0.25.1680.959@0.25.1680.959" timestamp="1613596153943" />
-    <state width="984" height="239" key="GridCell.Tab.0.center" timestamp="1613596153942">
-      <screen x="0" y="25" width="1680" height="959" />
-    </state>
-    <state width="984" height="239" key="GridCell.Tab.0.center/0.25.1680.959@0.25.1680.959" timestamp="1613596153942" />
-    <state width="984" height="239" key="GridCell.Tab.0.left" timestamp="1613596153941">
-      <screen x="0" y="25" width="1680" height="959" />
-    </state>
-    <state width="984" height="239" key="GridCell.Tab.0.left/0.25.1680.959@0.25.1680.959" timestamp="1613596153941" />
-    <state width="984" height="239" key="GridCell.Tab.0.right" timestamp="1613596153943">
-      <screen x="0" y="25" width="1680" height="959" />
-    </state>
-    <state width="984" height="239" key="GridCell.Tab.0.right/0.25.1680.959@0.25.1680.959" timestamp="1613596153943" />
   </component>
 </project>
