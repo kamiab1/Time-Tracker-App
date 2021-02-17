@@ -1,1 +1,3 @@
-# Time-Tracker-App
+Kamyab Ayanifard,
+
+# Time Tracker
