@@ -3,11 +3,11 @@
 ## Group 7
 
 ###### Contributors
-Kamyab Ayanifard
-Tommy Saechao
+Kamyab Ayanifard  
+Tommy Saechao  
 
 ## Contributing
-Each contributor's IDE are configured differently so there will be dependency errors when trying to build and run the project. To fix this follow the steps below:
+Each contributor's IDE are configured differently so there will be dependency errors when trying to build and run the project. To fix this, follow the steps below:
 
 1. Create a *new* Codename One project
 2. Select the correct Project SDK (which should be *Azul Zulu Open JDK FX Version 11 or greater*)
