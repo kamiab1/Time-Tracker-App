@@ -1,11 +1,12 @@
-##Contributors
+# Time Tracker App
+
+## Group 7
+
+###### Contributors
 Kamyab Ayanifard
 Tommy Saechao
 
-## Group 7
-# Time Tracker App
-
-##Contributing
+## Contributing
 Each contributor's IDE are configured differently so there will be dependency errors when trying to build and run the project. To fix this follow the steps below:
 
 1. Create a new Project
