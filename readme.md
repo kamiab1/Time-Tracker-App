@@ -5,6 +5,7 @@
 ###### Contributors
 Kamyab Ayanifard  
 Tommy Saechao  
+Thanh (Eric) Hoang  
 
 ## Contributing
 Each contributor's IDE are configured differently so there will be dependency errors when trying to build and run the project. To fix this, follow the steps below:
