@@ -15,23 +15,24 @@ import com.codename1.io.JSONParser;
 public class Data {
     DataBase db = new DataBase();
     TaskManager taskManager = new TaskManager();
-    public void addTask(String taskName){
-
+    public void addTask(String taskName) {
 
         Vector vector = new Vector();
         Map<String, String> map = new HashMap<>();
-        map.put("name", "jon doe");
-        map.put("age", "22");
-        map.put("city", "chicago");
+        map.put("size", "small");
+        map.put("description", " a task that is hard");
+        map.put("startTime", "");
+        map.put("endTime", "");
         vector.addElement(map);
-
         Storage.getInstance().writeObject(taskName, vector);
-        Vector val = (Vector)Storage.getInstance().readObject(taskName);
-        System.out.print(val.get(0));
-        Map<String, String> map2 = (Map<String, String>) val.get(0);
-        //Map<String, Object> data = json.parseJSON();
-        System.out.print(map2.get("city"));
 
+    }
+
+    public void getTaskMap(String taskName) {
+
+        Vector val = (Vector)Storage.getInstance().readObject(taskName);
+        Map<String, String> map2 = (Map<String, String>) val.get(0);
+        System.out.print(map2.get("description"));
     }
     private void startProgram(String[] args) {
         getInput(args);

@@ -124,10 +124,9 @@ public class AppMain {
     private void startBtnPressed() {
        Data d = new Data();
        d.addTask("studying");
-//        String input = taskName.getText();
-//        scaffold.add(input + " : is currently in progress \n" );
-//        scaffold.show();
-        System.out.println("start");
+       d.getTaskMap("studying");
+
+       System.out.println("start");
     }
 
     public void stop() {
