@@ -123,7 +123,7 @@ public class AppMain {
 
     private void startBtnPressed() {
        Data d = new Data();
-       d.addTask("studying");
+       //d.addTask("studying");
        d.getTaskMap("studying");
 
        System.out.println("start");

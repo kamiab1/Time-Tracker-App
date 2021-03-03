@@ -20,7 +20,7 @@ public class Data {
         Vector vector = new Vector();
         Map<String, String> map = new HashMap<>();
         map.put("size", "small");
-        map.put("description", " a task that is hard");
+        map.put("description", "a task that has changed ");
         map.put("startTime", "");
         map.put("endTime", "");
         vector.addElement(map);
@@ -32,7 +32,7 @@ public class Data {
 
         Vector val = (Vector)Storage.getInstance().readObject(taskName);
         Map<String, String> map2 = (Map<String, String>) val.get(0);
-        System.out.print(map2.get("description"));
+        System.out.print(map2.get("size"));
     }
     private void startProgram(String[] args) {
         getInput(args);
