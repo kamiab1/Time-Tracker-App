@@ -70,7 +70,6 @@ public class CreateTaskPageUI
 
         l.setUIID("Separator");
 
-        Button submit = new Button("Summary");
         TableLayout.Constraint cn = tl.createConstraint();
         cn.setHorizontalSpan(spanButton);
         cn.setHorizontalAlign(Component.RIGHT);
@@ -90,20 +89,6 @@ public class CreateTaskPageUI
     }
 
 
-
-    private void stopBtnPressed() {
-
-        scaffold.add("input" + " : Stopped \n" );
-
-        taskName.setText("");
-
-        description.setText("");
-        taskSize.setText("");
-
-        scaffold.show();
-        System.out.println("stop");
-    }
-
     private void startBtnPressed() {
         Data d = new Data();
         //d.addTask("studying");
@@ -121,6 +106,7 @@ public class CreateTaskPageUI
     }
 
     public void destroyUI() {
+
     }
 
 
