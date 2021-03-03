@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="310a0d7e-0f34-4f35-bb4b-a7d9d197896d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/Logic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/UI_PAGES/MainPageUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/UI_PAGES/ToolbarUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/org/ecs160/a2/model/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Versions.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Versions.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codenameone_kotlin.properties" beforeDir="false" afterPath="$PROJECT_DIR$/codenameone_kotlin.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codenameone_settings.properties" beforeDir="false" afterPath="$PROJECT_DIR$/codenameone_settings.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/build-impl.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/build-impl.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/private/private.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/private/private.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/private/private.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/project.properties" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nbproject/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbproject/project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/Business.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ecs160/a2/AppMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/AppMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ecs160/a2/AppMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ecs160/a2/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ecs160/a2/UI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ecs160/a2/UI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,17 +27,27 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1ocrJyvECMHL1KFlGvgAxuxPaYk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Run in Device Simulator" type="#com.codename1.plugin.intellij.run.CodenameOneConfigurationType" factoryName="Codename One" temporary="true">
@@ -61,6 +65,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -73,5 +78,8 @@
       <updated>1613596651277</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -1,21 +1,39 @@
 package org.ecs160.a2;
 
+
+import com.codename1.io.Storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import com.codename1.io.JSONParser;
 
 public class Data {
     DataBase db = new DataBase();
     TaskManager taskManager = new TaskManager();
+    public void addTask(String taskName) {
 
+        Vector vector = new Vector();
+        Map<String, String> map = new HashMap<>();
+        map.put("size", "small");
+        map.put("description", "a task that has changed ");
+        map.put("startTime", "");
+        map.put("endTime", "");
+        vector.addElement(map);
+        Storage.getInstance().writeObject(taskName, vector);
+
+    }
+
+    public void getTaskMap(String taskName) {
+
+        Vector val = (Vector)Storage.getInstance().readObject(taskName);
+        Map<String, String> map2 = (Map<String, String>) val.get(0);
+        System.out.print(map2.get("size"));
+    }
     private void startProgram(String[] args) {
         getInput(args);
     }
@@ -140,7 +158,9 @@ public class Data {
 
     public static void main(String[] args) {
         Data tm = new Data();
-        tm.startProgram(args);
+
+       // tm.startProgram(args);
+       // tm.testing();
     }
 
 }
