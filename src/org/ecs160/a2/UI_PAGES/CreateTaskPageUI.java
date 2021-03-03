@@ -65,6 +65,7 @@ public class CreateTaskPageUI
         description = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button startButton = new Button("Create");
+        Button mainPageButton = new Button("Task List");
 
         Label l = new Label(" ");
 
@@ -77,13 +78,14 @@ public class CreateTaskPageUI
                 .add(description)
                 .add(taskSize)
                 .add(startButton)
+                .add(mainPageButton)
                 .add(l);
 
 
         l.setUIID("Separator");
 
         startButton.addActionListener((e) -> startBtnPressed());
-
+        mainPageButton.addActionListener((e) -> mainBtnPressed());
         ToolbarUI toolbarUI = new ToolbarUI(scaffold);
         scaffold.show();
     }
@@ -95,6 +97,11 @@ public class CreateTaskPageUI
         d.getTaskMap("studying");
 
         System.out.println("start");
+    }
+
+    public void mainBtnPressed() {
+        MainPageUI mainPage = new MainPageUI();
+        mainPage.loadMainPageUI();
     }
 
     public void stopUI() {
