@@ -27,17 +27,22 @@ public class MainPageUI
         list.setScrollableY(true);
         skeleton.add(CENTER, list);
 
-        listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + 4); // this line will not be needed once we have the database
+        listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + 7); // this line will not be needed once we have the database
+        /*
+        listOfTasks[listOfTasks.length - 7] = new MultiButton("Bug Check Again and Again");
+        listOfTasks[listOfTasks.length - 6] = new MultiButton("Bug Check Again");
+        listOfTasks[listOfTasks.length - 5] = new MultiButton("Bug Check");
         listOfTasks[listOfTasks.length - 4] = new MultiButton("Studying");
         listOfTasks[listOfTasks.length - 3] = new MultiButton("Testing");
         listOfTasks[listOfTasks.length - 2] = new MultiButton("Practicing");
-        listOfTasks[listOfTasks.length - 1] = new MultiButton("Running");
+        listOfTasks[listOfTasks.length - 1] = new MultiButton("Running"); */
 
         for (int j = 0; j < listOfTasks.length; ++j) {
+            listOfTasks[j] = new MultiButton("Bug Testing " + j);
             list.addComponent(0,listOfTasks[j]);
-            //listOfTasks[j].getAllStyles().setFgColor(112);
+            //listOfTasks[j].getAllStyles().setBgColor(14737632);
             listOfTasks[j].setWidth(skeleton.getWidth());
-            //listOfTasks[j].setY(skeleton.getHeight());
+            listOfTasks[j].setY(skeleton.getHeight());
             String taskName = listOfTasks[j].getText();
             listOfTasks[j].addActionListener((e) -> editBtnPressed(taskName));
         }
