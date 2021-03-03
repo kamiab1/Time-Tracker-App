@@ -1,9 +1,9 @@
 package org.ecs160.a2;
 
-import org.ecs160.a2.UI_PAGES.MainPageUI;
+import org.ecs160.a2.UI_PAGES.CreateTaskPageUI;
 
 public class UI {
-    MainPageUI mainPageUI = new MainPageUI();
+    CreateTaskPageUI mainPageUI = new CreateTaskPageUI();
 
     public void initUI(Object context)
     {
