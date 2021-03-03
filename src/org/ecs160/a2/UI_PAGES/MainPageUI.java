@@ -1,50 +1,58 @@
 package org.ecs160.a2.UI_PAGES;
 
 import com.codename1.io.Log;
-import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
-import com.codename1.ui.Form;
-import com.codename1.ui.Toolbar;
+import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
-import com.codename1.ui.Label;
+import com.codename1.components.MultiButton;
 
 import java.util.Arrays;
 
-import static com.codename1.ui.CN.addNetworkErrorListener;
-import static com.codename1.ui.CN.updateNetworkThreadCount;
+import static com.codename1.ui.CN.*;
 
 public class MainPageUI
 {
     Form skeleton;
-    Label[] listOfTasks = {}; //Array of labels. Labels will be task names here.
+    MultiButton[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
     public static MainPageUI mainPage = new MainPageUI();
 
     public void loadMainPageUI() {
-        skeleton = new Form("Task List", new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
+        skeleton = new Form("Task List", new BorderLayout());
 
-        TableLayout tl;
-        int         spanButton = 2;
-        if(Display.getInstance().isTablet()) {
-            tl = new TableLayout(7, 2);
-        } else {
-            tl = new TableLayout(14, 1);
-            spanButton = 1;
+        Container list = new Container(BoxLayout.y());
+        list.setScrollableY(true);
+        skeleton.add(CENTER, list);
+
+        listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + 4); // this line will not be needed once we have the database
+        listOfTasks[listOfTasks.length - 4] = new MultiButton("Studying");
+        listOfTasks[listOfTasks.length - 3] = new MultiButton("Testing");
+        listOfTasks[listOfTasks.length - 2] = new MultiButton("Practicing");
+        listOfTasks[listOfTasks.length - 1] = new MultiButton("Running");
+
+        for (int j = 0; j < listOfTasks.length; ++j) {
+            list.addComponent(0,listOfTasks[j]);
+            //listOfTasks[j].getAllStyles().setFgColor(112);
+            listOfTasks[j].setWidth(skeleton.getWidth());
+            //listOfTasks[j].setY(skeleton.getHeight());
+            String taskName = listOfTasks[j].getText();
+            listOfTasks[j].addActionListener((e) -> editBtnPressed(taskName));
         }
-        tl.setGrowHorizontally(true);
-        skeleton.setLayout(tl);
-
-        listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + 1);
-        listOfTasks[listOfTasks.length - 1] = new Label("Studying");
-        skeleton.add(listOfTasks[0]);
 
         // Below is intended for the future when listOfTasks is compatible with the database of tasks.
         /* for (int i = 0; i < listOfTasks.length; ++i) {
+            listOfTasks.getAllStyles().setFgColor(112);
             skeleton.add(listOfTasks[i]);
         } */
 
+
         skeleton.show();
+    }
+
+    public void editBtnPressed(String taskName) {
+        // Load up the edit page here.
     }
 }
