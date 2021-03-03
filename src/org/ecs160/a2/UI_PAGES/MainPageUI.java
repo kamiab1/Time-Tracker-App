@@ -58,6 +58,7 @@ public class MainPageUI
     }
 
     public void editBtnPressed(String taskName) {
-        // Load up the edit page here.
+        // We'll use the taskName to ID which task we'll be editing.
+        EditPageUI.editPage.loadEditPageUI(taskName);
     }
 }
