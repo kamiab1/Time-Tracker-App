@@ -15,6 +15,7 @@ public class MainPageUI
 {
     Form skeleton;
 
+    public static MainPageUI mainPage = new MainPageUI();
     public void loadMainPageUI() {
         skeleton = new Form("Task List", new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
 

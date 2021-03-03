@@ -100,8 +100,7 @@ public class CreateTaskPageUI
     }
 
     public void mainBtnPressed() {
-        MainPageUI mainPage = new MainPageUI();
-        mainPage.loadMainPageUI();
+        MainPageUI.mainPage.loadMainPageUI();
     }
 
     public void stopUI() {
