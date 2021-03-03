@@ -22,6 +22,7 @@ public class ToolbarUI
         Command taskListMenu = new Command("View Task List");
         toolbar.addCommandToSideMenu(taskListMenu);
 
+
         Command createTaskMenu = new Command("Create Task");
         toolbar.addCommandToSideMenu(createTaskMenu);
 
