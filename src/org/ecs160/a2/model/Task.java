@@ -7,20 +7,20 @@ import java.util.Date;
 import java.util.Map;
 
 public class Task {
-    String name;
-    String description = "No decription";
-    String isRunning = "false";
-    String size = "No size";
-    Date startTime;
-    Date endTime;
+    public String name;
+    public String description = "No decription";
+    public String isRunning = "false";
+    public String size = "No size";
+    public Date startTime;
+    public Date endTime;
 
-    Task(String name, Map<String, String> map) throws ParseException {
+    public Task(String name, Map<String, String> map) throws ParseException {
         this.name = name;
         this.description = map.get("description");
         this.isRunning = map.get("isRunning");
         this.size = map.get("size");
-        this.startTime = parseTime(map.get("startTime"));
-        this.endTime = parseTime(map.get("endTime"));
+        this.startTime = new Date();// parseTime(map.get("startTime"));
+        this.endTime = new Date();//parseTime(map.get("endTime"));
     }
 
 

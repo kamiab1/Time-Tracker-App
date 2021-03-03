@@ -7,6 +7,12 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
 import org.ecs160.a2.Data;
+import org.ecs160.a2.Storage.Store;
+import org.ecs160.a2.model.Task;
+
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.codename1.ui.CN.*;
 import static com.codename1.ui.CN.getCurrentForm;
@@ -65,7 +71,7 @@ public class CreateTaskPageUI
         description = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button startButton = new Button("Create");
-        Button mainPageButton = new Button("Task List");
+        Button Back = new Button("Back");
 
         Label l = new Label(" ");
 
@@ -78,25 +84,37 @@ public class CreateTaskPageUI
                 .add(description)
                 .add(taskSize)
                 .add(startButton)
-                .add(mainPageButton)
+                .add(Back)
                 .add(l);
 
 
         l.setUIID("Separator");
 
         startButton.addActionListener((e) -> startBtnPressed());
-        mainPageButton.addActionListener((e) -> mainBtnPressed());
+        Back.addActionListener((e) -> mainBtnPressed());
         ToolbarUI toolbarUI = new ToolbarUI(scaffold);
         scaffold.show();
     }
 
 
     private void startBtnPressed() {
-        Data d = new Data();
-        //d.addTask("studying");
-        d.getTaskMap("studying");
+        Store               d = new Store();
+        Map<String, String> taskMap = new HashMap<>();
+        taskMap.put("size", "small");
+        taskMap.put("description",  " a new task");
+        taskMap.put("startTime",  new Data().toString());
+        taskMap.put("endTime", new Data().toString());
+        Task task = null;
+        try {
+            task = new Task("studying",taskMap);
+            d.addTask("studying", task);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println("start");
+        Task t = d.getTask("studying");
+
+        System.out.println(t.description);
     }
 
     public void mainBtnPressed() {
