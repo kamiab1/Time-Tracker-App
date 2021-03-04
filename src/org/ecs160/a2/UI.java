@@ -1,18 +1,15 @@
 package org.ecs160.a2;
 
-import org.ecs160.a2.UI_PAGES.CreateTaskPageUI;
+import org.ecs160.a2.UI_PAGES.MainPageUI;
 
 public class UI {
-    CreateTaskPageUI mainPageUI = new CreateTaskPageUI();
+    MainPageUI mainPageUI = new MainPageUI();
 
-    public void initUI(Object context)
-    {
-        mainPageUI.initUI(context);
-    }
+    public void initUI(Object context) { mainPageUI.initUI(context); }
 
     public void startUI()
     {
-        mainPageUI.startUI();
+        mainPageUI.loadMainPageUI();
     }
 
     public void stopUI()

@@ -18,9 +18,39 @@ import static com.codename1.ui.CN.*;
 public class MainPageUI
 {
     Form skeleton;
+    private Resources theme;
+    private Form current;
     public static MainPageUI mainPage = new MainPageUI();
 
+    public void initUI(Object context) {
+        // use two network threads instead of one
+        updateNetworkThreadCount(2);
+
+        theme = UIManager.initFirstTheme("/theme");
+
+        // Enable Toolbar on all Forms by default
+        Toolbar.setGlobalToolbar(true);
+
+        // Pro only feature
+        Log.bindCrashProtection(true);
+
+        addNetworkErrorListener(err -> {
+            // prevent the event from propagating
+            err.consume();
+            if(err.getError() != null) {
+                Log.e(err.getError());
+            }
+            Log.sendLogAsync();
+            Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
+        });
+    }
+
     public void loadMainPageUI() {
+        if(current != null){
+            current.show();
+            return;
+        }
+
         MultiButton[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
         skeleton = new Form("Task List", new BorderLayout());
         Command createTask = new Command("Create Task") {
@@ -68,5 +98,17 @@ public class MainPageUI
     public void editBtnPressed(String taskName) {
         // We'll use the taskName to ID which task we'll be editing.
         EditPageUI.editPage.loadEditPageUI(taskName);
+    }
+
+    public void stopUI() {
+        current = getCurrentForm();
+        if(current instanceof Dialog) {
+            ((Dialog)current).dispose();
+            current = getCurrentForm();
+        }
+    }
+
+    public void destroyUI() {
+
     }
 }
