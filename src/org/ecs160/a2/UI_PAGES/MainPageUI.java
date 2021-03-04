@@ -9,6 +9,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
 import com.codename1.components.MultiButton;
+import com.codename1.ui.events.ActionEvent;
 
 import java.util.Arrays;
 
@@ -17,11 +18,18 @@ import static com.codename1.ui.CN.*;
 public class MainPageUI
 {
     Form skeleton;
-    MultiButton[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
     public static MainPageUI mainPage = new MainPageUI();
 
     public void loadMainPageUI() {
+        MultiButton[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
         skeleton = new Form("Task List", new BorderLayout());
+        Command createTask = new Command("Create Task") {
+            public void actionPerformed(ActionEvent e) {
+                CreateTaskPageUI.createTaskPage.startUI();
+            }
+        };
+
+        skeleton.getToolbar().addCommandToRightBar(createTask);
 
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);

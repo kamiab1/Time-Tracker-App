@@ -25,6 +25,7 @@ public class CreateTaskPageUI
     TextField taskSize;
     private Form current;
     private Resources theme;
+    public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
 
     public void initUI(Object context) {
         // use two network threads instead of one
