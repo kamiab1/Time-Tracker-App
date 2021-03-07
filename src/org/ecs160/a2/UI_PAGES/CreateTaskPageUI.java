@@ -6,11 +6,11 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
-import org.ecs160.a2.Data;
 import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +26,7 @@ public class CreateTaskPageUI
     private Form current;
     private Resources theme;
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
+
 
     public void initUI(Object context) {
         // use two network threads instead of one
@@ -91,31 +92,35 @@ public class CreateTaskPageUI
 
         l.setUIID("Separator");
 
-        startButton.addActionListener((e) -> startBtnPressed());
+
+        startButton.addActionListener((e) -> createBtnPressed());
         Back.addActionListener((e) -> mainBtnPressed());
         ToolbarUI toolbarUI = new ToolbarUI(scaffold);
         scaffold.show();
+        
     }
 
 
-    private void startBtnPressed() {
-        Store               d = new Store();
+    private void createBtnPressed() {
+        Store store = new Store();
+        store.getTaskNameList();
+
         Map<String, String> taskMap = new HashMap<>();
         taskMap.put("size", "small");
         taskMap.put("description",  " a new task");
-        taskMap.put("startTime",  new Data().toString());
-        taskMap.put("endTime", new Data().toString());
+        taskMap.put("startTime",  new Date().toString());
+        taskMap.put("endTime", new Date().toString());
         Task task = null;
         try {
-            task = new Task("studying",taskMap);
-            d.addTask("studying", task);
-        } catch (ParseException e) {
+            task = new Task("gym",taskMap);
+            store.addTask("gym", task);
+        } catch ( ParseException e) {
             e.printStackTrace();
         }
 
-        Task t = d.getTask("studying");
-
-        System.out.println(t.description);
+        Task t = store.getTask("studying");
+        store.getAllTasks();
+       // System.out.println(t.description);
     }
 
     public void mainBtnPressed() {
