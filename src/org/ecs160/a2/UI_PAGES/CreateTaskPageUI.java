@@ -21,10 +21,11 @@ public class CreateTaskPageUI
 {
     Form scaffold;
     TextField taskName;
-    TextField description;
+    TextField taskDescription;
     TextField taskSize;
     private Form current;
     private Resources theme;
+    Store store = new Store();
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
 
 
@@ -70,7 +71,7 @@ public class CreateTaskPageUI
         scaffold.setLayout(tl);
 
         taskName = new TextField("", "taskName", 20, TextArea.ANY);
-        description = new TextField("", "Description", 40, TextArea.ANY);
+        taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button startButton = new Button("Create");
         Button Back = new Button("Back");
@@ -83,7 +84,7 @@ public class CreateTaskPageUI
         cn.setHorizontalSpan(spanButton);
         cn.setHorizontalAlign(Component.RIGHT);
         scaffold.add(taskName)
-                .add(description)
+                .add(taskDescription)
                 .add(taskSize)
                 .add(startButton)
                 .add(Back)
@@ -102,25 +103,34 @@ public class CreateTaskPageUI
 
 
     private void createBtnPressed() {
-        Store store = new Store();
-        store.getTaskNameList();
 
+        store.getTaskNameList();
+        String nameText = taskName.getText();
+        String descriptionText = taskDescription.getText();
+        String sizeText = taskSize.getText();
         Map<String, String> taskMap = new HashMap<>();
-        taskMap.put("size", "small");
-        taskMap.put("description",  " a new task");
+        taskMap.put("size", sizeText);
+        taskMap.put("description",  descriptionText);
         taskMap.put("startTime",  new Date().toString());
         taskMap.put("endTime", new Date().toString());
         Task task = null;
         try {
-            task = new Task("gym",taskMap);
-            store.addTask("gym", task);
+            task = new Task(nameText,taskMap);
+            store.addTask(task);
         } catch ( ParseException e) {
             e.printStackTrace();
         }
 
-        Task t = store.getTask("studying");
+       // Task t = store.getTask("studying");
         store.getAllTasks();
+        clearFields();
        // System.out.println(t.description);
+    }
+
+    private void clearFields() {
+        taskName.clear();
+        taskDescription.clear();
+        taskSize.clear();
     }
 
     public void mainBtnPressed() {
