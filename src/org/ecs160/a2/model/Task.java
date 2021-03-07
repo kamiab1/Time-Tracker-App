@@ -14,7 +14,7 @@ public class Task {
     public Date startTime;
     public Date endTime;
 
-    public Task(String name, Map<String, String> map) throws ParseException {
+    public Task(String name, Map<String, String> map)  {
         this.name = name;
         this.description = map.get("description");
         this.isRunning = map.get("isRunning");
@@ -23,6 +23,21 @@ public class Task {
         this.endTime = new Date();//parseTime(map.get("endTime"));
     }
 
+    // FACTORY
+//    public Task(String name,String description, String size)  {
+//        this.name = name;
+//        this.description = description;
+//        this.size = size;
+//        this.isRunning = "false";
+//        this.startTime = new Date();// parseTime(map.get("startTime"));
+//        this.endTime = new Date();//parseTime(map.get("endTime"));
+//    }
+//
+//    public static Task initTaskFromMap(String name, Map<String, String> map) {
+//        String description = map.get("description");
+//        String size = map.get("size");
+//        return new Task(name,description,size);
+//    }
 
     /******* private helpers *******/
     private Date parseTime(String time) throws ParseException {
