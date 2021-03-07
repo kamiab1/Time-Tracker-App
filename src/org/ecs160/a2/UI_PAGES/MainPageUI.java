@@ -90,7 +90,7 @@ public class MainPageUI
 
         // Random line to push again, because of some github problems?
         // Random line to push again, because of some github problems? AGAIN
-
+        // Testing github commit issues not detecting my commits on the graph.
 
         skeleton.show();
     }
