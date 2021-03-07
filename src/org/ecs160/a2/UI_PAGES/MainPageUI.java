@@ -55,7 +55,6 @@ public class MainPageUI
             return;
         }
 
-        MultiButton[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
         skeleton = new Form("Task List", new BorderLayout());
         Command createTask = new Command("Create Task") {
             public void actionPerformed(ActionEvent e) {
@@ -68,29 +67,29 @@ public class MainPageUI
         Container list = new Container(BoxLayout.y());
         list.setScrollableY(true);
         skeleton.add(CENTER, list);
-        List<Task> taskList = store.getAllTasks();
 
-        listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + taskList.size()); // this line will not be needed once we have the database
-        /*
-        listOfTasks[listOfTasks.length - 7] = new MultiButton("Bug Check Again and Again");
-        listOfTasks[listOfTasks.length - 6] = new MultiButton("Bug Check Again");
-        listOfTasks[listOfTasks.length - 5] = new MultiButton("Bug Check");
-        listOfTasks[listOfTasks.length - 4] = new MultiButton("Studying");
-        listOfTasks[listOfTasks.length - 3] = new MultiButton("Testing");
-        listOfTasks[listOfTasks.length - 2] = new MultiButton("Practicing");
-        listOfTasks[listOfTasks.length - 1] = new MultiButton("Running"); */
+        List<Task> taskList = store.getAllTasks();
+        Container[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
+        listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + taskList.size()); // Copies same size as database.
 
         for (int j = 0; j < listOfTasks.length; ++j) {
-            listOfTasks[j] = new MultiButton("Bug Testing " + j);
-            list.addComponent(0,listOfTasks[j]);
-            //listOfTasks[j].getAllStyles().setBgColor(14737632);
+            String taskName = taskList.get(j).name;
+
+            listOfTasks[j] = new Container(BoxLayout.x());
             listOfTasks[j].setWidth(skeleton.getWidth());
             listOfTasks[j].setY(skeleton.getHeight());
-            String taskName = listOfTasks[j].getText();
-            listOfTasks[j].addActionListener((e) -> editBtnPressed(taskName));
+
+            MultiButton taskButton = new MultiButton(taskName);
+            taskButton.addActionListener((e)->editBtnPressed(taskName));
+            taskButton.setWidth(skeleton.getWidth());
+
+            listOfTasks[j].addComponent(taskButton);
+            list.addComponent(0,listOfTasks[j]);
+            //listOfTasks[j].getAllStyles().setBgColor(14737632);
         }
 
         // Random line to push again, because of some github problems?
+        // Random line to push again, because of some github problems? AGAIN
 
 
         skeleton.show();
