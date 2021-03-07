@@ -38,7 +38,7 @@ public class Store {
 
     private boolean doesTaskExist(String taskName) {
         final List<String> taskNamesList = getTaskNameList();
-        AtomicBoolean      exist         = new AtomicBoolean(false);
+        AtomicBoolean exist = new AtomicBoolean(false);
         taskNamesList.forEach((eachTaskName) -> {
             if (eachTaskName.equals(taskName)) {
                 exist.set(true);
@@ -55,9 +55,10 @@ public class Store {
 
 
 
-    public void addTask(String taskName, Task task) {
+    public void addTask(Task task) {
+        String taskName = task.name;
         if (doesTaskExist(taskName)) {
-            System.out.print("this task already exist");
+            System.out.print("this task already exist \n");
             return;
         }
 
@@ -94,6 +95,7 @@ public class Store {
         taskNamesList.forEach( (taskName) -> {
             Task task = getTask(taskName);
             taskList.add(task);
+            System.out.print(task.name + "\n");
         });
         return taskList;
     }
