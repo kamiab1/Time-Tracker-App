@@ -76,16 +76,18 @@ public class MainPageUI
         listOfTasks[listOfTasks.length - 1] = new MultiButton("Running"); */
 
         for (int j = 0; j < listOfTasks.length; ++j) {
-
-            //listOfTasks[j] = new MultiButton("Bug Testing " + j);
+            String taskName = "Container " + j;
             listOfTasks[j] = new Container(BoxLayout.x());
-            listOfTasks[j].addComponent(new Label("Hi" + j));
-            list.addComponent(0,listOfTasks[j]);
-            //listOfTasks[j].getAllStyles().setBgColor(14737632);
             listOfTasks[j].setWidth(skeleton.getWidth());
             listOfTasks[j].setY(skeleton.getHeight());
-            //String taskName = listOfTasks[j].getText();
-            //listOfTasks[j].addActionListener((e) -> editBtnPressed(taskName));
+
+            MultiButton taskButton = new MultiButton(taskName);
+            taskButton.addActionListener((e)->editBtnPressed(taskName));
+            taskButton.setWidth(skeleton.getWidth());
+
+            listOfTasks[j].addComponent(taskButton);
+            list.addComponent(0,listOfTasks[j]);
+            //listOfTasks[j].getAllStyles().setBgColor(14737632);
         }
 
         // Below is intended for the future when listOfTasks is compatible with the database of tasks.
