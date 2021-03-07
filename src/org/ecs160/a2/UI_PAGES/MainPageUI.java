@@ -51,7 +51,7 @@ public class MainPageUI
             return;
         }
 
-        MultiButton[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
+        Container[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
         skeleton = new Form("Task List", new BorderLayout());
         Command createTask = new Command("Create Task") {
             public void actionPerformed(ActionEvent e) {
@@ -76,13 +76,16 @@ public class MainPageUI
         listOfTasks[listOfTasks.length - 1] = new MultiButton("Running"); */
 
         for (int j = 0; j < listOfTasks.length; ++j) {
-            listOfTasks[j] = new MultiButton("Bug Testing " + j);
+
+            //listOfTasks[j] = new MultiButton("Bug Testing " + j);
+            listOfTasks[j] = new Container(BoxLayout.x());
+            listOfTasks[j].addComponent(new Label("Hi" + j));
             list.addComponent(0,listOfTasks[j]);
             //listOfTasks[j].getAllStyles().setBgColor(14737632);
             listOfTasks[j].setWidth(skeleton.getWidth());
             listOfTasks[j].setY(skeleton.getHeight());
-            String taskName = listOfTasks[j].getText();
-            listOfTasks[j].addActionListener((e) -> editBtnPressed(taskName));
+            //String taskName = listOfTasks[j].getText();
+            //listOfTasks[j].addActionListener((e) -> editBtnPressed(taskName));
         }
 
         // Below is intended for the future when listOfTasks is compatible with the database of tasks.
