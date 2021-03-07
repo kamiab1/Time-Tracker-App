@@ -104,27 +104,21 @@ public class CreateTaskPageUI
 
     private void createBtnPressed() {
 
-        store.getTaskNameList();
         String nameText = taskName.getText();
         String descriptionText = taskDescription.getText();
         String sizeText = taskSize.getText();
+
         Map<String, String> taskMap = new HashMap<>();
         taskMap.put("size", sizeText);
         taskMap.put("description",  descriptionText);
         taskMap.put("startTime",  new Date().toString());
         taskMap.put("endTime", new Date().toString());
-        Task task = null;
-        try {
-            task = new Task(nameText,taskMap);
-            store.addTask(task);
-        } catch ( ParseException e) {
-            e.printStackTrace();
-        }
+        Task task = new Task(nameText,taskMap);
+        store.addTask(task);
 
-       // Task t = store.getTask("studying");
         store.getAllTasks();
         clearFields();
-       // System.out.println(t.description);
+
     }
 
     private void clearFields() {

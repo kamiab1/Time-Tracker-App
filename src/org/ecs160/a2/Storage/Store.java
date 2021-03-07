@@ -15,9 +15,7 @@ public class Store {
     }
 
 
-
-
-    public List<String> getTaskNameList() {
+    private List<String> getTaskNameList() {
         Vector allTasks = (Vector)Storage.getInstance().readObject("allTasks");
         if (allTasks == null) {
             return new ArrayList<String>();
@@ -25,7 +23,6 @@ public class Store {
             List<String> nameList = (List<String>) allTasks.get(0);
             return nameList;
         }
-
     }
 
     private void addToTaskNameList(String taskName) {
@@ -80,12 +77,7 @@ public class Store {
     public Task getTask(String taskName) {
         Vector val = (Vector)Storage.getInstance().readObject(taskName);
         Map<String, String> map = (Map<String, String>) val.get(0);
-        try {
-            return new Task(taskName,map);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return new Task(taskName,map);
     }
 
     public List<Task> getAllTasks () {
