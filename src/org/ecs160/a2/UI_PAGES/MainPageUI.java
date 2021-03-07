@@ -88,11 +88,7 @@ public class MainPageUI
             //listOfTasks[j].getAllStyles().setBgColor(14737632);
         }
 
-        // Below is intended for the future when listOfTasks is compatible with the database of tasks.
-        /* for (int i = 0; i < listOfTasks.length; ++i) {
-            listOfTasks.getAllStyles().setFgColor(112);
-            skeleton.add(listOfTasks[i]);
-        } */
+        // Random line to push again, because of some github problems?
 
 
         skeleton.show();
