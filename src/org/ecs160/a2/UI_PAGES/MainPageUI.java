@@ -80,7 +80,7 @@ public class MainPageUI
             listOfTasks[j].setY(skeleton.getHeight());
 
             MultiButton taskButton = new MultiButton(taskName);
-            taskButton.addActionListener((e)->editBtnPressed(taskName));
+            taskButton.addActionListener((e)->infoBtnPressed(taskName));
             taskButton.setWidth(skeleton.getWidth());
 
             listOfTasks[j].addComponent(taskButton);
@@ -95,9 +95,9 @@ public class MainPageUI
         skeleton.show();
     }
 
-    public void editBtnPressed(String taskName) {
+    public void infoBtnPressed(String taskName) {
         // We'll use the taskName to ID which task we'll be editing.
-        EditPageUI.editPage.loadEditPageUI(taskName);
+        SummaryPageUI.infoPage.loadSummaryPageUI(taskName);
     }
 
     public void stopUI() {
