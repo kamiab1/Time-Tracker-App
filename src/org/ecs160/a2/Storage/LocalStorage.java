@@ -12,9 +12,16 @@ public class LocalStorage {
     /******** GET ********/
 
     public Task getTask(String taskName) {
-        Vector val = (Vector)Storage.getInstance().readObject(taskName);
-        Map<String, String> map = (Map<String, String>) val.get(0);
-        return new Task(taskName,map);
+        Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
+
+        if (taskVector == null) {
+            Map<String, String> taskMap  = new HashMap<>();
+            return  new Task(taskName,taskMap);
+        } else {
+            Map<String, String> taskMap = (Map<String, String>) taskVector.get(0);
+            return new Task(taskName,taskMap);
+        }
+
     }
 
     public List<Task> getAllTasks () {
@@ -38,16 +45,15 @@ public class LocalStorage {
         }
 
         Vector vector = new Vector();
-        Map<String, String> map    = new HashMap<>();
-        map.put("size", task.size);
-        map.put("description",  task.description);
-        map.put("isRunning",  "false");
-        map.put("startTime",  task.startTime.toString());
-        map.put("endTime", task.endTime.toString());
-        vector.addElement(map);
+        Map<String, String> taskMap  = new HashMap<>();
+        taskMap.put("size", task.size);
+        taskMap.put("description",  task.description);
+        taskMap.put("isRunning",  "false");
+        taskMap.put("startTime",  task.startTime.toString());
+        taskMap.put("endTime", task.endTime.toString());
+        vector.addElement(taskMap);
         Storage.getInstance().writeObject(taskName, vector);
-        // add to the list
-        //deleteTaskNameList();
+
         addToTaskNameList(taskName);
     }
 
@@ -65,7 +71,7 @@ public class LocalStorage {
 
     }
 
-    public void endTask(Task task) {
+    public void stopTask(Task task) {
 
     }
 
@@ -117,7 +123,7 @@ public class LocalStorage {
     private void deleteSingularTaskObject(String name) {
         Storage.getInstance().deleteStorageFile(name);
     }
-    public void deletaALLname() {
+    public void deleteAllNames() {
         Storage.getInstance().deleteStorageFile("allTasks");
     }
 }

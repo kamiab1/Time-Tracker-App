@@ -40,7 +40,7 @@ public class Storage {
     }
 
     public void stopTask(Task task) {
-        localStorage.endTask(task);
+        localStorage.stopTask(task);
     }
 
     public void addTask(Task task) {
