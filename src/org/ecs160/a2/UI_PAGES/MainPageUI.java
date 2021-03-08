@@ -4,9 +4,7 @@ import com.codename1.io.Log;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
-import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.events.ActionEvent;
@@ -109,7 +107,7 @@ public class MainPageUI
     }
 
     public void infoBtnPressed(Task task) {
-        SummaryPageUI.infoPage.loadSummaryPageUI(task);
+        InfoPageUI.infoPage.startUI(task);
     }
 
     public void stopUI() {

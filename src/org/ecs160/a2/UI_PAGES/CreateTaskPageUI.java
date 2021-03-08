@@ -1,20 +1,14 @@
 package org.ecs160.a2.UI_PAGES;
 
-import com.codename1.io.Log;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.util.Resources;
 import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
-
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.codename1.ui.CN.*;
 import static com.codename1.ui.CN.getCurrentForm;
 
 public class CreateTaskPageUI
@@ -27,30 +21,6 @@ public class CreateTaskPageUI
     private Resources theme;
     Store store = new Store();
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
-
-
-    public void initUI(Object context) {
-        // use two network threads instead of one
-        updateNetworkThreadCount(2);
-
-        theme = UIManager.initFirstTheme("/theme");
-
-        // Enable Toolbar on all Forms by default
-        Toolbar.setGlobalToolbar(true);
-
-        // Pro only feature
-        Log.bindCrashProtection(true);
-
-        addNetworkErrorListener(err -> {
-            // prevent the event from propagating
-            err.consume();
-            if(err.getError() != null) {
-                Log.e(err.getError());
-            }
-            Log.sendLogAsync();
-            Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
-        });
-    }
 
     public void startUI() {
         if(current != null){
@@ -96,7 +66,6 @@ public class CreateTaskPageUI
 
         startButton.addActionListener((e) -> createBtnPressed());
         Back.addActionListener((e) -> mainBtnPressed());
-        ToolbarUI toolbarUI = new ToolbarUI(scaffold);
         scaffold.show();
         
     }
@@ -116,7 +85,7 @@ public class CreateTaskPageUI
         Task task = new Task(nameText,taskMap);
         store.addTask(task);
 
-        store.getAllTasks();
+        //store.getAllTasks();
         clearFields();
 
     }
@@ -129,6 +98,7 @@ public class CreateTaskPageUI
 
     public void mainBtnPressed() {
         MainPageUI.mainPage.loadMainPageUI();
+        stopUI();
     }
 
     public void stopUI() {
