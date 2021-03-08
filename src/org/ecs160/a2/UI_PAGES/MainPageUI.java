@@ -17,7 +17,7 @@ import static com.codename1.ui.CN.*;
 
 public class MainPageUI
 {
-    Store store = new Store();
+    private Store store = new Store();
     private Form scaffold;
     private Resources theme;
     public static MainPageUI mainPage = new MainPageUI();

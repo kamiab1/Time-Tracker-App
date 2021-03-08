@@ -4,12 +4,11 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
-
 import static com.codename1.ui.CN.getCurrentForm;
 
 
 public class InfoPageUI {
-    private Form skeleton;
+    private Form scaffold;
     Button backButton = new Button("Back");
     Label statusLabel = new Label("Status");
     Button startButton = new Button("Start");
@@ -30,15 +29,15 @@ public class InfoPageUI {
     public void startUI(Task task) {
         currentTask = task;
         System.out.print(" \n received data :" + currentTask.name);
-        if(skeleton != null){
-            initData();
-            skeleton.show();
+        if(scaffold != null){
+            initData(); // needs testing
+            scaffold.show();
             return;
         }
         setUpLayout(currentTask);
         setUpButtons(currentTask);
         initData();
-        skeleton.show();
+        scaffold.show();
     }
 
 
@@ -65,14 +64,12 @@ public class InfoPageUI {
     public void setUpLayout(Task task)
     {
 
-        skeleton = new Form(task.name, new BorderLayout());
+        scaffold = new Form(task.name, new BorderLayout());
         TableLayout tl = new TableLayout(11, 2);
         tl.setGrowHorizontally(true);
-        skeleton.setLayout(tl);
+        scaffold.setLayout(tl);
 
-
-
-        skeleton.
+        scaffold.
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), backButton).
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), statusLabel).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), startButton).
@@ -103,10 +100,10 @@ public class InfoPageUI {
     /*************** Clean up ****************/
 
     public void stopUI() {
-        skeleton = getCurrentForm();
-        if(skeleton instanceof Dialog) {
-            ((Dialog)skeleton).dispose();
-            skeleton = getCurrentForm();
+        scaffold = getCurrentForm();
+        if(scaffold instanceof Dialog) {
+            ((Dialog) scaffold).dispose();
+            scaffold = getCurrentForm();
         }
     }
 }
