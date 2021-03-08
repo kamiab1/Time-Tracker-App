@@ -32,7 +32,7 @@ public class LocalStorage {
 
     public void addTask(Task task) {
         String taskName = task.name;
-        if (doesTaskExist(taskName)) {
+        if (doesTaskExist(taskName) || taskName.equals("") ) {
             System.out.print("this task already exists \n");
             return;
         }
@@ -109,5 +109,7 @@ public class LocalStorage {
     private void deleteSingularTaskObject(String name) {
         Storage.getInstance().deleteStorageFile(name);
     }
-
+    public void deletaALLname() {
+        Storage.getInstance().deleteStorageFile("allTasks");
+    }
 }

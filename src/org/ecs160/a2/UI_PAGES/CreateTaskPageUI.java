@@ -3,6 +3,7 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
+import org.ecs160.a2.Custom_UI.CustomButton;
 import org.ecs160.a2.Storage.LocalStorage;
 import org.ecs160.a2.model.Task;
 import java.util.Date;
@@ -83,7 +84,7 @@ public class CreateTaskPageUI
         taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button createButton = new Button("Create");
-        Button Back = new Button("Back");
+        Button Back = new CustomButton("back").getButton();
 
         scaffold.add(taskName)
                 .add(taskDescription)
