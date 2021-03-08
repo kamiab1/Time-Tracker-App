@@ -10,19 +10,19 @@ import static com.codename1.ui.CN.getCurrentForm;
 
 public class EditPageUI
 {
-    Form scaffold;
+    private Form scaffold;
     TextField taskName;
     TextField taskDescription;
     TextField taskSize;
-    private Form current;
+
     private Resources theme;
     Store store = new Store();
     public static EditPageUI editPage = new EditPageUI();
     private Task currentTask;
     public void startUI(Task task) {
         currentTask = task;
-        if(current != null){
-            current.show();
+        if(scaffold != null){
+            scaffold.show();
             return;
         }
         setUpPageLayout(task);
@@ -39,13 +39,14 @@ public class EditPageUI
     }
 
     private void updateBtn() {
+
     }
 
     public void stopUI() {
-        current = getCurrentForm();
-        if(current instanceof Dialog) {
-            ((Dialog)current).dispose();
-            current = getCurrentForm();
+        scaffold = getCurrentForm();
+        if(scaffold instanceof Dialog) {
+            ((Dialog)scaffold).dispose();
+            scaffold = getCurrentForm();
         }
     }
 

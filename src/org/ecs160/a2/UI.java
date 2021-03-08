@@ -9,7 +9,7 @@ public class UI {
 
     public void startUI()
     {
-        mainPageUI.loadMainPageUI();
+        mainPageUI.startUI();
     }
 
     public void stopUI()

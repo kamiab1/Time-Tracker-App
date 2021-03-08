@@ -97,7 +97,7 @@ public class CreateTaskPageUI
     }
 
     public void mainBtnPressed() {
-        MainPageUI.mainPage.loadMainPageUI();
+        MainPageUI.mainPage.startUI();
         stopUI();
     }
 
