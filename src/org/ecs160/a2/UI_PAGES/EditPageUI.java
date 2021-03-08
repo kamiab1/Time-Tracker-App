@@ -7,6 +7,8 @@ import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.table.TableLayout;
+import org.ecs160.a2.model.Task;
+
 import java.util.Arrays;
 import static com.codename1.ui.CN.CENTER;
 
@@ -15,8 +17,8 @@ public class EditPageUI
     Form skeleton;
     public static EditPageUI editPage = new EditPageUI();
 
-    public void loadEditPageUI(String taskName) {
-        skeleton = new Form("Editing Task: " + taskName, new BorderLayout());
+    public void loadEditPageUI(Task task) {
+        skeleton = new Form("Editing Task: " + task.name, new BorderLayout());
 
         TableLayout tl;
         int         spanButton = 2;

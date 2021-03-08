@@ -72,15 +72,28 @@ public class MainPageUI
         Container[] listOfTasks = {}; //Array of Buttons. Buttons will be task names here. Need to access database.
         listOfTasks = Arrays.copyOf(listOfTasks, listOfTasks.length + taskList.size()); // Copies same size as database.
 
+//        for (Container taskContainer : listOfTasks ) {
+//            taskContainer
+//            taskContainer = new Container(BoxLayout.x());
+//            taskContainer.setWidth(skeleton.getWidth());
+//            taskContainer.setY(skeleton.getHeight());
+//
+//            MultiButton taskButton = new MultiButton(taskName);
+//            taskButton.addActionListener((e)->infoBtnPressed(task));
+//            taskButton.setWidth(skeleton.getWidth());
+//
+//            list.addComponent(0,taskContainer);
+//        }
+
         for (int j = 0; j < listOfTasks.length; ++j) {
-            String taskName = taskList.get(j).name;
+            Task task = taskList.get(j);
 
             listOfTasks[j] = new Container(BoxLayout.x());
             listOfTasks[j].setWidth(skeleton.getWidth());
             listOfTasks[j].setY(skeleton.getHeight());
 
-            MultiButton taskButton = new MultiButton(taskName);
-            taskButton.addActionListener((e)->infoBtnPressed(taskName));
+            MultiButton taskButton = new MultiButton(task.name);
+            taskButton.addActionListener((e)->infoBtnPressed(task));
             taskButton.setWidth(skeleton.getWidth());
 
             listOfTasks[j].addComponent(taskButton);
@@ -95,9 +108,8 @@ public class MainPageUI
         skeleton.show();
     }
 
-    public void infoBtnPressed(String taskName) {
-        // We'll use the taskName to ID which task we'll be editing.
-        SummaryPageUI.infoPage.loadSummaryPageUI(taskName);
+    public void infoBtnPressed(Task task) {
+        SummaryPageUI.infoPage.loadSummaryPageUI(task);
     }
 
     public void stopUI() {

@@ -4,6 +4,8 @@ import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.table.TableLayout;
+import org.ecs160.a2.model.Task;
+
 import java.util.Arrays;
 import static com.codename1.ui.CN.CENTER;
 
@@ -28,7 +30,7 @@ public class SummaryPageUI {
 
     public static SummaryPageUI infoPage = new SummaryPageUI();
 
-    public void loadSummaryPageUI(String taskName) {
+    public void loadSummaryPageUI(Task task) {
         if (skeleton != null)
         {
             //TODO: Implement function to load task info and data (requires
@@ -36,17 +38,17 @@ public class SummaryPageUI {
             skeleton.show();
             return;
         }
-        initSummaryPage(taskName);
+        initSummaryPage(task);
         skeleton.show();
     }
 
-    public void initSummaryPage(String taskName)
+    public void initSummaryPage(Task task)
     {
-        skeleton = new Form("Info: " + taskName, new BorderLayout());
+        skeleton = new Form("Info: " + task.name, new BorderLayout());
         TableLayout tl = new TableLayout(11, 2);
         tl.setGrowHorizontally(true);
         skeleton.setLayout(tl);
-        editButton.addActionListener((e) -> EditPageUI.editPage.loadEditPageUI(taskName));
+        editButton.addActionListener((e) -> EditPageUI.editPage.loadEditPageUI(task));
         backButton.addActionListener((e) -> MainPageUI.mainPage.loadMainPageUI());
         skeleton.
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), backButton).
