@@ -7,18 +7,16 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.events.ActionEvent;
-import org.ecs160.a2.Storage.Store;
+import org.ecs160.a2.Storage.LocalStorage;
 import org.ecs160.a2.model.Task;
-
 import java.util.List;
-
 import static com.codename1.ui.CN.*;
 
 public class MainPageUI
 {
     public static MainPageUI mainPage = new MainPageUI();
 
-    private final Store store = new Store();
+    private final LocalStorage store = new LocalStorage();
     private Form scaffold;
     private Resources theme;
 

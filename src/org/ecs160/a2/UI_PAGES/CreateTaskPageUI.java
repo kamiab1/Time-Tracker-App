@@ -3,7 +3,7 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
-import org.ecs160.a2.Storage.Store;
+import org.ecs160.a2.Storage.LocalStorage;
 import org.ecs160.a2.model.Task;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class CreateTaskPageUI
 {
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
 
-    private final Store store = new Store();
+    private final LocalStorage store = new LocalStorage();
     private Form scaffold;
     private TextField taskName;
     private TextField taskDescription;
