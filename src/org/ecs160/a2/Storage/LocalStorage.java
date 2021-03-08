@@ -14,7 +14,7 @@ public class LocalStorage {
     public Task getTask(String taskName) {
         Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
 
-        if (taskVector == null) {
+        if (taskVector == null || taskVector.isEmpty()) {
             Map<String, String> taskMap  = new HashMap<>();
             return  new Task(taskName,taskMap);
         } else {
@@ -27,7 +27,7 @@ public class LocalStorage {
     public List<Task> getAllTasks () {
         final List<Task> taskList = new ArrayList<Task>();
         final List<String> taskNamesList = getTaskNameList();
-        taskNamesList.forEach( (taskName) -> {
+        taskNamesList.forEach((taskName) -> {
             Task task = getTask(taskName);
             taskList.add(task);
         });
