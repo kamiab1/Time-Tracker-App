@@ -1,18 +1,74 @@
 package org.ecs160.a2.Storage;
-
 import com.codename1.io.Storage;
-
-import java.text.ParseException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.ecs160.a2.model.Task;
 
 public class Store {
 
-    private void deleteTaskNameList() {
-        Storage.getInstance().deleteStorageFile("allTasks");
+    /****************** public *******************/
+
+
+    /******** GET ********/
+
+    public Task getTask(String taskName) {
+        Vector val = (Vector)Storage.getInstance().readObject(taskName);
+        Map<String, String> map = (Map<String, String>) val.get(0);
+        return new Task(taskName,map);
     }
+
+    public List<Task> getAllTasks () {
+        final List<Task> taskList = new ArrayList<Task>();
+        final List<String> taskNamesList = getTaskNameList();
+        taskNamesList.forEach( (taskName) -> {
+            Task task = getTask(taskName);
+            taskList.add(task);
+        });
+        return taskList;
+    }
+
+
+    /******** SET ********/
+
+    public void addTask(Task task) {
+        String taskName = task.name;
+        if (doesTaskExist(taskName)) {
+            System.out.print("this task already exists \n");
+            return;
+        }
+
+        Vector vector = new Vector();
+        Map<String, String> map    = new HashMap<>();
+        map.put("size", task.size);
+        map.put("description",  task.description);
+        map.put("isRunning",  "false");
+        map.put("startTime",  task.startTime.toString());
+        map.put("endTime", task.endTime.toString());
+        vector.addElement(map);
+        Storage.getInstance().writeObject(taskName, vector);
+        // add to the list
+        //deleteTaskNameList();
+        addToTaskNameList(taskName);
+    }
+
+
+    public void editTask(Task task) {
+
+    }
+
+    public void deleteTask() {
+
+    }
+
+
+
+
+
+
+
+
+
+    /**************** Private ****************/
 
 
     private List<String> getTaskNameList() {
@@ -33,6 +89,8 @@ public class Store {
         Storage.getInstance().writeObject("allTasks", vector);
     }
 
+    /**************** Helper ****************/
+
     private boolean doesTaskExist(String taskName) {
         final List<String> taskNamesList = getTaskNameList();
         AtomicBoolean exist = new AtomicBoolean(false);
@@ -45,54 +103,8 @@ public class Store {
         return exist.get();
     }
 
-    public void deleteTask() {
-
+    private void deleteTaskNameList() {
+        Storage.getInstance().deleteStorageFile("allTasks");
     }
 
-    public void editTask(Task task) {
-
-    }
-
-
-
-
-    public void addTask(Task task) {
-        String taskName = task.name;
-        if (doesTaskExist(taskName)) {
-            System.out.print("this task already exist \n");
-            return;
-        }
-
-        Vector vector = new Vector();
-        Map<String, String> map    = new HashMap<>();
-        map.put("size", task.size);
-        map.put("description",  task.description);
-        map.put("startTime",  task.startTime.toString());
-        map.put("endTime", task.endTime.toString());
-        vector.addElement(map);
-        Storage.getInstance().writeObject(taskName, vector);
-        // add to the list
-        //deleteTaskNameList();
-        addToTaskNameList(taskName);
-    }
-
-
-
-    public Task getTask(String taskName) {
-        Vector val = (Vector)Storage.getInstance().readObject(taskName);
-        Map<String, String> map = (Map<String, String>) val.get(0);
-        return new Task(taskName,map);
-    }
-
-    public List<Task> getAllTasks () {
-        final List<Task> taskList = new ArrayList<Task>();
-        final List<String> taskNamesList = getTaskNameList();
-        System.out.print(taskNamesList);
-        taskNamesList.forEach( (taskName) -> {
-            Task task = getTask(taskName);
-            taskList.add(task);
-            System.out.print(task.name + "\n");
-        });
-        return taskList;
-    }
 }

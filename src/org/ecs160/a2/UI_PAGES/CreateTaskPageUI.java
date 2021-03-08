@@ -13,7 +13,7 @@ import static com.codename1.ui.CN.getCurrentForm;
 
 public class CreateTaskPageUI
 {
-    Form scaffold;
+    private Form scaffold;
     TextField taskName;
     TextField taskDescription;
     TextField taskSize;
@@ -27,52 +27,15 @@ public class CreateTaskPageUI
             current.show();
             return;
         }
-        scaffold = new Form("Welcome", new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER_ABSOLUTE));
-
-        TableLayout tl;
-        int         spanButton = 2;
-        if(Display.getInstance().isTablet()) {
-            tl = new TableLayout(7, 2);
-        } else {
-            tl = new TableLayout(14, 1);
-            spanButton = 1;
-        }
-        tl.setGrowHorizontally(true);
-        scaffold.setLayout(tl);
-
-        taskName = new TextField("", "taskName", 20, TextArea.ANY);
-        taskDescription = new TextField("", "Description", 40, TextArea.ANY);
-        taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
-        Button startButton = new Button("Create");
-        Button Back = new Button("Back");
-
-        Label l = new Label(" ");
-
-        l.setUIID("Separator");
-
-        TableLayout.Constraint cn = tl.createConstraint();
-        cn.setHorizontalSpan(spanButton);
-        cn.setHorizontalAlign(Component.RIGHT);
-        scaffold.add(taskName)
-                .add(taskDescription)
-                .add(taskSize)
-                .add(startButton)
-                .add(Back)
-                .add(l);
-
-
-        l.setUIID("Separator");
-
-
-        startButton.addActionListener((e) -> createBtnPressed());
-        Back.addActionListener((e) -> mainBtnPressed());
+        setUpPageLayout();
+        setUpButtons();
         scaffold.show();
-        
     }
 
 
-    private void createBtnPressed() {
+    /*************** General functions ****************/
 
+    private void createBtn() {
         String nameText = taskName.getText();
         String descriptionText = taskDescription.getText();
         String sizeText = taskSize.getText();
@@ -85,9 +48,7 @@ public class CreateTaskPageUI
         Task task = new Task(nameText,taskMap);
         store.addTask(task);
 
-        //store.getAllTasks();
         clearFields();
-
     }
 
     private void clearFields() {
@@ -96,21 +57,55 @@ public class CreateTaskPageUI
         taskSize.clear();
     }
 
-    public void mainBtnPressed() {
+    private void backBtn() {
         MainPageUI.mainPage.startUI();
         stopUI();
     }
 
-    public void stopUI() {
+
+
+    /*************** UI functions ****************/
+
+    private void setUpPageLayout() {
+        scaffold = new Form("Create a new Task", new BorderLayout());
+        TableLayout tl;
+        int spanButton = 1;
+        tl = new TableLayout(14, 1);
+        tl.setGrowHorizontally(true);
+        scaffold.setLayout(tl);
+        TableLayout.Constraint cn = tl.createConstraint();
+        cn.setHorizontalSpan(spanButton);
+        cn.setHorizontalAlign(Component.RIGHT);
+    }
+
+    private void setUpButtons() {
+        taskName = new TextField("", "Task name", 20, TextArea.ANY);
+        taskDescription = new TextField("", "Description", 40, TextArea.ANY);
+        taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
+        Button createButton = new Button("Create");
+        Button Back = new Button("Back");
+
+        scaffold.add(taskName)
+                .add(taskDescription)
+                .add(taskSize)
+                .add(createButton)
+                .add(Back);
+
+        createButton.addActionListener((e) -> createBtn());
+        Back.addActionListener((e) -> backBtn());
+    }
+
+
+
+
+    /*************** Clean up ****************/
+
+    private void stopUI() {
         current = getCurrentForm();
         if(current instanceof Dialog) {
             ((Dialog)current).dispose();
             current = getCurrentForm();
         }
-    }
-
-    public void destroyUI() {
-
     }
 
 

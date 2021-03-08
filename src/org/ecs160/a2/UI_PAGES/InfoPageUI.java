@@ -33,11 +33,16 @@ public class InfoPageUI {
             skeleton.show();
             return;
         }
-        statusLabel.setText(" kir");
+
         initSummaryPage(task);
         initData();
         skeleton.show();
     }
+
+
+
+
+    /*************** General functions ****************/
 
     private void initData() {
         System.out.print(" \n called to show data \n ");
@@ -45,6 +50,15 @@ public class InfoPageUI {
         descriptionLabel.setText("Description: "+ currentTask.description);
         sizeLabel.setText("size: "+ currentTask.size);
     }
+
+    private void goBack() {
+        MainPageUI.mainPage.startUI();
+        //stopUI();
+    }
+
+
+
+    /*************** UI functions ****************/
 
     public void initSummaryPage(Task task)
     {
@@ -71,10 +85,9 @@ public class InfoPageUI {
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), editButton);
     }
 
-    private void goBack() {
-        MainPageUI.mainPage.startUI();
-       //stopUI();
-    }
+
+
+    /*************** Clean up ****************/
 
     public void stopUI() {
         skeleton = getCurrentForm();
