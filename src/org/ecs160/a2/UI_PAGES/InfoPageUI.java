@@ -2,7 +2,8 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
-import org.ecs160.a2.Storage.LocalStorage;
+
+import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.model.Task;
 import static com.codename1.ui.CN.getCurrentForm;
 
@@ -11,7 +12,7 @@ public class InfoPageUI {
 
     public static InfoPageUI infoPage = new InfoPageUI();
 
-    private final LocalStorage store = new LocalStorage();
+    private final Storage storage = Storage.instanse();
     private Form scaffold;
     private final Button backButton = new Button("Back");
     private final Label statusLabel = new Label("Status");
@@ -45,21 +46,6 @@ public class InfoPageUI {
 
 
 
-    /*************** General functions ****************/
-
-    private void initData() {
-        System.out.print(" \n called to show data \n ");
-        statusLabel.setText("Activity status: " + currentTask.isRunning);
-        descriptionLabel.setText("Description: "+ currentTask.description);
-        sizeLabel.setText("size: "+ currentTask.size);
-    }
-
-    private void goBack() {
-        MainPageUI.mainPage.startUI();
-        //stopUI();
-    }
-
-
 
     /*************** UI functions ****************/
 
@@ -87,14 +73,41 @@ public class InfoPageUI {
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), editButton);
     }
 
+
     private void setUpButtons(Task task) {
         editButton.addActionListener((e) -> EditPageUI.editPage.startUI(task));
         backButton.addActionListener((e) -> goBack());
         deleteButton.addActionListener((e) -> deleteThisTask());
+        startButton.addActionListener((e) -> startThisTask());
+        stopButton.addActionListener((e) -> stopThisTask());
+    }
+
+
+
+    /*************** General functions ****************/
+
+    private void initData() {
+        System.out.print(" \n called to show data \n ");
+        statusLabel.setText("Activity status: " + currentTask.isRunning);
+        descriptionLabel.setText("Description: "+ currentTask.description);
+        sizeLabel.setText("size: "+ currentTask.size);
+    }
+
+    private void goBack() {
+        MainPageUI.mainPage.startUI();
+        //stopUI();
+    }
+
+    private void stopThisTask() {
+        storage.stopTask(currentTask);
+    }
+
+    private void startThisTask() {
+        storage.startTask(currentTask);
     }
 
     private void deleteThisTask() {
-        store.deleteTask(currentTask);
+        storage.deleteTask(currentTask);
         goBack();
     }
 

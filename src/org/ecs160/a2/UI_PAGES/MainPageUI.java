@@ -7,7 +7,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.events.ActionEvent;
-import org.ecs160.a2.Storage.LocalStorage;
+import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.model.Task;
 import java.util.List;
 import static com.codename1.ui.CN.*;
@@ -16,7 +16,7 @@ public class MainPageUI
 {
     public static MainPageUI mainPage = new MainPageUI();
 
-    private final LocalStorage store = new LocalStorage();
+    private final Storage storage = Storage.instanse();
     private Form scaffold;
     private Resources theme;
 
@@ -28,10 +28,10 @@ public class MainPageUI
 
     public void startUI() {
         // NOT SURE NEEDS MORE TESTS
-        if(scaffold != null){
-            scaffold.show();
-            return;
-        }
+//        if(scaffold != null){
+//            scaffold.show();
+//            return;
+//        }
 
         setUpLayout();
         toolBarSetup();
@@ -58,7 +58,7 @@ public class MainPageUI
     /*************** General functions ****************/
 
     private List<Task> getAllTasks() {
-        return store.getAllTasks();
+        return storage.getAllTasks();
     }
 
     private void goToInfoPage(Task task) {

@@ -61,6 +61,14 @@ public class LocalStorage {
         removeFromTaskNameList(task.name);
     }
 
+    public void startTask(Task task) {
+
+    }
+
+    public void endTask(Task task) {
+
+    }
+
 
 
     /**************** Private ****************/

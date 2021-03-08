@@ -5,6 +5,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Custom_UI.CustomButton;
 import org.ecs160.a2.Storage.LocalStorage;
+import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.model.Task;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class CreateTaskPageUI
 {
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
 
-    private final LocalStorage store = new LocalStorage();
+    private final Storage storage = Storage.instanse();
     private Form scaffold;
     private TextField taskName;
     private TextField taskDescription;
@@ -47,7 +48,7 @@ public class CreateTaskPageUI
         taskMap.put("startTime",  new Date().toString());
         taskMap.put("endTime", new Date().toString());
         Task task = new Task(nameText,taskMap);
-        store.addTask(task);
+        storage.addTask(task);
 
         clearFields();
     }

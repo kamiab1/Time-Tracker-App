@@ -35,6 +35,14 @@ public class Storage {
 
     /******** SET ********/
 
+    public void startTask(Task task) {
+        localStorage.startTask(task);
+    }
+
+    public void stopTask(Task task) {
+        localStorage.endTask(task);
+    }
+
     public void addTask(Task task) {
         localStorage.addTask(task);
     }
