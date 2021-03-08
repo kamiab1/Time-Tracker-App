@@ -3,22 +3,18 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
-import com.codename1.ui.util.Resources;
 import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
 import static com.codename1.ui.CN.getCurrentForm;
 
 public class EditPageUI
 {
-    private Form scaffold;
-    TextField taskName;
-    TextField taskDescription;
-    TextField taskSize;
-
-    private Resources theme;
-    Store store = new Store();
     public static EditPageUI editPage = new EditPageUI();
+
+    private final Store store = new Store();
+    private Form scaffold;
     private Task currentTask;
+
     public void startUI(Task task) {
         currentTask = task;
         if(scaffold != null){
@@ -29,7 +25,6 @@ public class EditPageUI
         setUpButtons();
         scaffold.show();
     }
-
 
 
 
@@ -63,9 +58,9 @@ public class EditPageUI
     }
 
     private void setUpButtons() {
-        taskName = new TextField("", "Re-name", 20, TextArea.ANY);
-        taskDescription = new TextField("", "Description", 40, TextArea.ANY);
-        taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
+        TextField taskName = new TextField("", "Re-name", 20, TextArea.ANY);
+        TextField taskDescription = new TextField("", "Description", 40, TextArea.ANY);
+        TextField taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button startButton = new Button("update");
         Button Back = new Button("Back");
 

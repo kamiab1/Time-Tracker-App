@@ -3,7 +3,6 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
-import com.codename1.ui.util.Resources;
 import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
 import java.util.Date;
@@ -13,14 +12,15 @@ import static com.codename1.ui.CN.getCurrentForm;
 
 public class CreateTaskPageUI
 {
-    private Form scaffold;
-    TextField taskName;
-    TextField taskDescription;
-    TextField taskSize;
-    private Form current;
-    private Resources theme;
-    private Store store = new Store();
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
+
+    private final Store store = new Store();
+    private Form scaffold;
+    private TextField taskName;
+    private TextField taskDescription;
+    private TextField taskSize;
+    private Form current;
+
 
     public void startUI() {
         if(current != null){

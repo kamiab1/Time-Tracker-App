@@ -8,23 +8,25 @@ import static com.codename1.ui.CN.getCurrentForm;
 
 
 public class InfoPageUI {
-    private Form scaffold;
-    Button backButton = new Button("Back");
-    Label statusLabel = new Label("Status");
-    Button startButton = new Button("Start");
-    Button stopButton = new Button("Stop");
-    Label descriptionLabel = new Label("Description");
-    Label sizeLabel = new Label("Size");
-    Label taskDataLabel = new Label("Task Data");
-    Label minTimeLabel = new Label("Min Time: ");
-    Label maxTimeLabel = new Label("Max Time: ");
-    Label avgTimeLabel = new Label("Avg Time: ");
-    Button deleteButton = new Button("Delete");
-    Button editButton = new Button("Edit");
-    private Store store = new Store();
 
-    private Task currentTask;
     public static InfoPageUI infoPage = new InfoPageUI();
+
+    private final Store store = new Store();
+    private Form scaffold;
+    private final Button backButton = new Button("Back");
+    private final Label statusLabel = new Label("Status");
+    private final Button startButton = new Button("Start");
+    private final Button stopButton = new Button("Stop");
+    private final Label descriptionLabel = new Label("Description");
+    private final Label sizeLabel = new Label("Size");
+    private final Label taskDataLabel = new Label("Task Data");
+    private final Label minTimeLabel = new Label("Min Time: ");
+    private final Label maxTimeLabel = new Label("Max Time: ");
+    private final Label avgTimeLabel = new Label("Avg Time: ");
+    private final Button deleteButton = new Button("Delete");
+    private final Button editButton = new Button("Edit");
+    private Task currentTask;
+
 
     public void startUI(Task task) {
         currentTask = task;

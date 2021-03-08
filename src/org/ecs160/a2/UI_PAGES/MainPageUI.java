@@ -10,17 +10,17 @@ import com.codename1.ui.events.ActionEvent;
 import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.codename1.ui.CN.*;
 
 public class MainPageUI
 {
-    private Store store = new Store();
+    public static MainPageUI mainPage = new MainPageUI();
+
+    private final Store store = new Store();
     private Form scaffold;
     private Resources theme;
-    public static MainPageUI mainPage = new MainPageUI();
 
     public void initUI(Object context) {
         theme = UIManager.initFirstTheme("/theme");
@@ -30,27 +30,31 @@ public class MainPageUI
 
     public void startUI() {
         // NOT SURE NEEDS MORE TESTS
-//        if(scaffold != null){
-//            scaffold.show();
-//            return;
-//        }
+        if(scaffold != null){
+            scaffold.show();
+            return;
+        }
+
+        setUpLayout();
+        toolBarSetup();
+        Container taskListView = createListViewContainer();
 
         List<Task> taskList = getAllTasks();
-        scaffold = new Form("Task List", new BorderLayout());
-        toolBarSetup();
-        Container taskListView = createListView();
 
-        // show the list of all tasks
+        // this shows the list of all tasks
         taskList.forEach( eachTask -> {
             Container taskContainer = makeTaskContainer();
             MultiButton taskButton = makeTaskBtn(eachTask);
 
             taskContainer.addComponent(taskButton);
+            // TODO: Add more components
+
             taskListView.addComponent(taskContainer);
         });
 
         scaffold.show();
     }
+
 
 
     /*************** General functions ****************/
@@ -67,6 +71,10 @@ public class MainPageUI
 
     /*************** UI functions ****************/
 
+    private void setUpLayout() {
+        scaffold = new Form("Task List", new BorderLayout());
+    }
+
     private void toolBarSetup() {
         Command createTaskCommand = new Command("Create Task") {
             public void actionPerformed(ActionEvent e) {
@@ -76,11 +84,11 @@ public class MainPageUI
         scaffold.getToolbar().addCommandToRightBar(createTaskCommand);
     }
 
-    private Container createListView() {
+    private Container createListViewContainer() {
         Container taskListView = new Container(BoxLayout.y());
         taskListView.setScrollableY(true);
         scaffold.add(CENTER, taskListView);
-        return  taskListView;
+        return taskListView;
     }
 
     private MultiButton makeTaskBtn(Task eachTask) {
