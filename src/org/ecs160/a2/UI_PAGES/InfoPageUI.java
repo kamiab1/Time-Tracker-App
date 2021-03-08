@@ -2,6 +2,7 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
+import org.ecs160.a2.Storage.Store;
 import org.ecs160.a2.model.Task;
 
 import static com.codename1.ui.CN.getCurrentForm;
@@ -21,6 +22,7 @@ public class InfoPageUI {
     Label avgTimeLabel = new Label("Avg Time: ");
     Button deleteButton = new Button("Delete");
     Button editButton = new Button("Edit");
+    private Store store = new Store();
 
     private Task currentTask;
     public static InfoPageUI infoPage = new InfoPageUI();
@@ -33,8 +35,8 @@ public class InfoPageUI {
             skeleton.show();
             return;
         }
-
-        initSummaryPage(task);
+        setUpLayout(currentTask);
+        setUpButtons(currentTask);
         initData();
         skeleton.show();
     }
@@ -60,15 +62,16 @@ public class InfoPageUI {
 
     /*************** UI functions ****************/
 
-    public void initSummaryPage(Task task)
+    public void setUpLayout(Task task)
     {
-        skeleton = new Form(  task.name, new BorderLayout());
+
+        skeleton = new Form(task.name, new BorderLayout());
         TableLayout tl = new TableLayout(11, 2);
         tl.setGrowHorizontally(true);
         skeleton.setLayout(tl);
-        editButton.addActionListener((e) -> EditPageUI.editPage.startUI(task));
 
-        backButton.addActionListener((e) -> goBack());
+
+
         skeleton.
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), backButton).
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), statusLabel).
@@ -85,6 +88,16 @@ public class InfoPageUI {
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), editButton);
     }
 
+    private void setUpButtons(Task task) {
+        editButton.addActionListener((e) -> EditPageUI.editPage.startUI(task));
+        backButton.addActionListener((e) -> goBack());
+        deleteButton.addActionListener((e) -> deleteThisTask());
+    }
+
+    private void deleteThisTask() {
+        store.deleteTask(currentTask);
+        goBack();
+    }
 
 
     /*************** Clean up ****************/

@@ -19,7 +19,7 @@ public class CreateTaskPageUI
     TextField taskSize;
     private Form current;
     private Resources theme;
-    Store store = new Store();
+    private Store store = new Store();
     public static CreateTaskPageUI createTaskPage = new CreateTaskPageUI();
 
     public void startUI() {

@@ -56,15 +56,10 @@ public class Store {
 
     }
 
-    public void deleteTask() {
-
+    public void deleteTask(Task task) {
+        deleteSingularTaskObject(task.name);
+        removeFromTaskNameList(task.name);
     }
-
-
-
-
-
-
 
 
 
@@ -103,8 +98,16 @@ public class Store {
         return exist.get();
     }
 
-    private void deleteTaskNameList() {
-        Storage.getInstance().deleteStorageFile("allTasks");
+    private void removeFromTaskNameList(String name) {
+        Vector vector = new Vector();
+        final List<String> nameList = getTaskNameList();
+        nameList.remove(name);
+        vector.addElement(nameList);
+        Storage.getInstance().writeObject("allTasks", vector);
+    }
+
+    private void deleteSingularTaskObject(String name) {
+        Storage.getInstance().deleteStorageFile(name);
     }
 
 }
