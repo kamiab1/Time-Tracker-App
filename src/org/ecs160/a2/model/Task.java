@@ -3,8 +3,7 @@ package org.ecs160.a2.model;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 public class Task {
     public String name;
@@ -13,6 +12,8 @@ public class Task {
     public String size = "No size";
     public Date startTime;
     public Date endTime;
+    private List<TimeWindow> timeWindowList = new ArrayList<TimeWindow>();
+    private List<Date> durationList = new ArrayList<Date>();
 
     public Task(String name, Map<String, String> map)  {
         this.name = name;
@@ -38,6 +39,37 @@ public class Task {
 //        String size = map.get("size");
 //        return new Task(name,description,size);
 //    }
+
+
+
+    public Date getTotalDuration() {
+        long totalTime = 0;
+        for (Date time : durationList) {
+            totalTime = totalTime + time.getTime();
+        }
+        return new Date(totalTime);
+    }
+
+    public Date getMinDuration() {
+        List<Date> sorted = durationList;
+        Collections.sort(sorted, (a, b) -> a.compareTo(b));
+        return sorted.get(0);
+    }
+
+    public Date getMaxDuration() {
+        List<Date> sorted = durationList;
+        Collections.sort(sorted, (a, b) -> a.compareTo(b));
+        return sorted.get(sorted.size() -1);
+    }
+
+    public Date getAvgDuration() {
+        long totalTime = 0, avgTime = 0;
+        for (Date time : durationList) {
+            totalTime = totalTime + time.getTime();
+        }
+        avgTime = totalTime / durationList.size();
+        return new Date(avgTime);
+    }
 
     /******* private helpers *******/
     private Date parseTime(String time) throws ParseException {

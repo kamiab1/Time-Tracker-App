@@ -57,19 +57,23 @@ public class LocalStorage {
     }
 
 
-    public void editTask(Task task) {
-        String taskName = task.name;
+    public void editTask(Task newTask, Task oldTask) {
+
+        deleteTask(oldTask);
+
+        String taskName = newTask.name;
 
         Vector vector = new Vector();
         Map<String, String> taskMap  = new HashMap<>();
-        taskMap.put("size", task.size);
-        taskMap.put("description",  task.description);
+        taskMap.put("size", newTask.size);
+        taskMap.put("description",  newTask.description);
         taskMap.put("isRunning",  "false");
-        taskMap.put("startTime",  task.startTime.toString());
-        taskMap.put("endTime", task.endTime.toString());
+        taskMap.put("startTime",  newTask.startTime.toString());
+        taskMap.put("endTime", newTask.endTime.toString());
         vector.addElement(taskMap);
         Storage.getInstance().writeObject(taskName, vector);
 
+        addToTaskNameList(taskName);
     }
 
     public void deleteTask(Task task) {

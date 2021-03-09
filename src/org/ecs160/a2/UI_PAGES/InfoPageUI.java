@@ -1,5 +1,6 @@
 package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 
@@ -37,8 +38,27 @@ public class InfoPageUI {
             scaffold.show();
             return;
         }
-        setUpLayout(currentTask);
-        setUpButtons(currentTask);
+        scaffold = new Form("Current Task: " + currentTask.name, new BorderLayout());
+
+        setUpLayout();
+        setUpButtons();
+        new ToolbarUI(scaffold);
+        // back btn ?
+
+//        Button test = new Button("Test");
+//        test.addActionListener((e) -> {
+//            scaffold.setToolbar(new Toolbar());
+//            scaffold.setBackCommand(new Command("Back") {
+//
+//                public void actionPerformed(ActionEvent evt) {
+//                    scaffold.showBack();
+//                }
+//            });
+//            scaffold.show();
+//        });
+
+
+
         initData();
         scaffold.show();
     }
@@ -49,10 +69,10 @@ public class InfoPageUI {
 
     /*************** UI functions ****************/
 
-    public void setUpLayout(Task task)
+    public void setUpLayout()
     {
 
-        scaffold = new Form(task.name, new BorderLayout());
+        //"Current Task: " + currentTask.name, new BorderLayout()
         TableLayout tl = new TableLayout(11, 2);
         tl.setGrowHorizontally(true);
         scaffold.setLayout(tl);
@@ -74,8 +94,8 @@ public class InfoPageUI {
     }
 
 
-    private void setUpButtons(Task task) {
-        editButton.addActionListener((e) -> EditPageUI.editPage.startUI(task));
+    private void setUpButtons() {
+        editButton.addActionListener((e) -> EditPageUI.editPage.startUI(currentTask));
         backButton.addActionListener((e) -> goBack());
         deleteButton.addActionListener((e) -> deleteThisTask());
         startButton.addActionListener((e) -> startThisTask());
@@ -95,7 +115,7 @@ public class InfoPageUI {
 
     private void goBack() {
         MainPageUI.mainPage.startUI();
-        //stopUI();
+        stopUI();
     }
 
     private void stopThisTask() {

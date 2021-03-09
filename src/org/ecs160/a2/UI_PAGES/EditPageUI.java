@@ -15,9 +15,9 @@ public class EditPageUI
     private final Storage storage = Storage.instanse();
     private Form scaffold;
     private Task currentTask;
-    TextField taskName;
-    TextField taskDescription;
-    TextField taskSize;
+    private TextField taskName;
+    private TextField taskDescription;
+    private TextField taskSize;
     public void startUI(Task task) {
         currentTask = task;
         if(scaffold != null){
@@ -31,8 +31,8 @@ public class EditPageUI
 
 
 
-    private void backBtn(Task task) {
-        InfoPageUI.infoPage.startUI(task);
+    private void backBtn() {
+        InfoPageUI.infoPage.startUI(currentTask);
         stopUI();
     }
 
@@ -41,15 +41,25 @@ public class EditPageUI
         String descriptionText = taskDescription.getText();
         String taskSizeText = taskSize.getText();
 
+        Task newTask = currentTask;
+        System.out.print("before to change " + newTask.name);
+        if (!nameText.equals("")) {
+            System.out.print("hereee");
+            newTask.name = nameText;
+
+        }
         if (!taskSizeText.equals("")) {
-            currentTask.size = taskSizeText;
+            newTask.size = taskSizeText;
         }
         if (!descriptionText.equals("")) {
-            currentTask.description = descriptionText;
+            newTask.name = descriptionText;
         }
+        System.out.print("\n about to change " + newTask.name);
+        storage.editTask(newTask, currentTask);
 
-        storage.editTask(currentTask);
-
+        currentTask = newTask;
+       // backBtn();
+        scaffold.show();
         clearFields();
     }
 
@@ -77,17 +87,17 @@ public class EditPageUI
         taskName = new TextField("", "Re-name", 20, TextArea.ANY);
         taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
-        Button startButton = new Button("update");
+        Button updateButton = new Button("update");
         Button Back = new Button("Back");
 
         scaffold.add(taskName)
                 .add(taskDescription)
                 .add(taskSize)
-                .add(startButton)
+                .add(updateButton)
                 .add(Back);
 
-        startButton.addActionListener((e) -> updateBtn());
-        Back.addActionListener((e) -> backBtn(currentTask));
+        updateButton.addActionListener((e) -> updateBtn());
+        Back.addActionListener((e) -> backBtn());
     }
 
     public void stopUI() {

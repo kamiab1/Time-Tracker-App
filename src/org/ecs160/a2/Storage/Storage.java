@@ -48,8 +48,8 @@ public class Storage {
         localStorage.addTask(task);
     }
 
-    public void editTask(Task task) {
-        localStorage.editTask(task);
+    public void editTask(Task newTask, Task oldTask) {
+        localStorage.editTask(newTask, oldTask);
     }
 
     public void deleteTask(Task task) {
