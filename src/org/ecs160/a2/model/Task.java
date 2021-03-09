@@ -20,8 +20,6 @@ public class Task {
         this.description = map.get("description");
         this.isRunning = map.get("isRunning");
         this.size = map.get("size");
-        this.startTime = new Date();// parseTime(map.get("startTime"));
-        this.endTime = new Date();//parseTime(map.get("endTime"));
     }
 
     // FACTORY

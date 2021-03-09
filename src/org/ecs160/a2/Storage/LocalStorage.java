@@ -13,13 +13,12 @@ public class LocalStorage {
 
     public Task getTask(String taskName) {
         Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
-
+        Map<String, String> taskMap  = new HashMap<>();
         if (taskVector == null || taskVector.isEmpty()) {
-            Map<String, String> taskMap  = new HashMap<>();
             return  new Task(taskName,taskMap);
         } else {
-            Map<String, String> taskMap = (Map<String, String>) taskVector.get(0);
-                return new Task(taskName,taskMap);
+            taskMap = (Map<String, String>) taskVector.get(0);
+            return new Task(taskName,taskMap);
         }
     }
 
@@ -44,17 +43,18 @@ public class LocalStorage {
         }
 
         Vector vector = new Vector();
-        Map<String, String> taskMap  = new HashMap<>();
+        Map<String, Object> taskMap  = new HashMap<>();
+
         taskMap.put("size", task.size);
         taskMap.put("description",  task.description);
         taskMap.put("isRunning",  "false");
-        taskMap.put("startTime",  task.startTime.toString());
-        taskMap.put("endTime", task.endTime.toString());
+
         vector.addElement(taskMap);
         Storage.getInstance().writeObject(taskName, vector);
 
         addToTaskNameList(taskName);
     }
+
 
 
     public void editTask(Task newTask, Task oldTask) {
@@ -82,13 +82,55 @@ public class LocalStorage {
     }
 
     public void startTask(Task task) {
+        String taskName = task.name;
 
+        Vector vector = new Vector();
+        Map<String, String> taskMap  = new HashMap<>();
+        taskMap.put("size", task.size);
+        taskMap.put("description",  task.description);
+        taskMap.put("isRunning",  task.isRunning);
+        taskMap.put("startTime",  task.startTime.toString());
+        taskMap.put("endTime", task.endTime.toString());
+        vector.addElement(taskMap);
+        Storage.getInstance().writeObject(taskName, vector);
+
+        addToTaskTimeList(task.name);
     }
 
     public void stopTask(Task task) {
+        String taskName = task.name;
 
+        Vector vector = new Vector();
+        Map<String, String> taskMap  = new HashMap<>();
+        taskMap.put("size", task.size);
+        taskMap.put("description",  task.description);
+        taskMap.put("isRunning",  task.isRunning);
+        taskMap.put("startTime",  task.startTime.toString());
+        taskMap.put("endTime", task.endTime.toString());
+        vector.addElement(taskMap);
+        Storage.getInstance().writeObject(taskName, vector);
+
+        addToTaskTimeList(task.name);
     }
 
+    private void addToTaskTimeList(String taskName) {
+        Vector TimeListVector = new Vector();
+        final List<String> timeList = getTaskTimeList(taskName);
+        final String time = new Date().toString();
+
+        timeList.add(time);
+        TimeListVector.addElement(timeList);
+        Storage.getInstance().writeObject(taskName, TimeListVector);
+    }
+
+    private List<String> getTaskTimeList(String taskName) {
+        Vector TimeListVector = (Vector)Storage.getInstance().readObject(taskName);
+        if (TimeListVector == null) {
+            return new ArrayList<String>();
+        } else {
+            return (List<String>) TimeListVector.get(0);
+        }
+    }
 
 
     /**************** Private ****************/
