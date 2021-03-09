@@ -12,24 +12,15 @@ public class LocalStorage {
     /******** GET ********/
 
     public Task getTask(String taskName) {
-        if (taskName.equals("")) {
-            Map<String, String> taskMap  = new HashMap<>();
-            return  new Task(taskName,taskMap);
-        }
         Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
+
         if (taskVector == null || taskVector.isEmpty()) {
             Map<String, String> taskMap  = new HashMap<>();
             return  new Task(taskName,taskMap);
         } else {
             Map<String, String> taskMap = (Map<String, String>) taskVector.get(0);
-//            if (taskMap.isEmpty()) {
-//                Map<String, String> emptyMap  = new HashMap<>();
-//                return  new Task(taskName,emptyMap);
-//            }
-//            else
                 return new Task(taskName,taskMap);
         }
-
     }
 
     public List<Task> getAllTasks () {
@@ -67,6 +58,17 @@ public class LocalStorage {
 
 
     public void editTask(Task task) {
+        String taskName = task.name;
+
+        Vector vector = new Vector();
+        Map<String, String> taskMap  = new HashMap<>();
+        taskMap.put("size", task.size);
+        taskMap.put("description",  task.description);
+        taskMap.put("isRunning",  "false");
+        taskMap.put("startTime",  task.startTime.toString());
+        taskMap.put("endTime", task.endTime.toString());
+        vector.addElement(taskMap);
+        Storage.getInstance().writeObject(taskName, vector);
 
     }
 

@@ -15,7 +15,9 @@ public class EditPageUI
     private final Storage storage = Storage.instanse();
     private Form scaffold;
     private Task currentTask;
-
+    TextField taskName;
+    TextField taskDescription;
+    TextField taskSize;
     public void startUI(Task task) {
         currentTask = task;
         if(scaffold != null){
@@ -35,16 +37,29 @@ public class EditPageUI
     }
 
     private void updateBtn() {
+        String nameText = taskName.getText();
+        String descriptionText = taskDescription.getText();
+        String taskSizeText = taskSize.getText();
 
-    }
-
-    public void stopUI() {
-        scaffold = getCurrentForm();
-        if(scaffold instanceof Dialog) {
-            ((Dialog)scaffold).dispose();
-            scaffold = getCurrentForm();
+        if (!taskSizeText.equals("")) {
+            currentTask.size = taskSizeText;
         }
+        if (!descriptionText.equals("")) {
+            currentTask.description = descriptionText;
+        }
+
+        storage.editTask(currentTask);
+
+        clearFields();
     }
+
+    private void clearFields() {
+        taskName.clear();
+        taskDescription.clear();
+        taskSize.clear();
+    }
+
+
 
     private void setUpPageLayout(Task task) {
         scaffold = new Form("Editing Task: " + task.name, new BorderLayout());
@@ -59,9 +74,9 @@ public class EditPageUI
     }
 
     private void setUpButtons() {
-        TextField taskName = new TextField("", "Re-name", 20, TextArea.ANY);
-        TextField taskDescription = new TextField("", "Description", 40, TextArea.ANY);
-        TextField taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
+        taskName = new TextField("", "Re-name", 20, TextArea.ANY);
+        taskDescription = new TextField("", "Description", 40, TextArea.ANY);
+        taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button startButton = new Button("update");
         Button Back = new Button("Back");
 
@@ -73,5 +88,13 @@ public class EditPageUI
 
         startButton.addActionListener((e) -> updateBtn());
         Back.addActionListener((e) -> backBtn(currentTask));
+    }
+
+    public void stopUI() {
+        scaffold = getCurrentForm();
+        if(scaffold instanceof Dialog) {
+            ((Dialog)scaffold).dispose();
+            scaffold = getCurrentForm();
+        }
     }
 }

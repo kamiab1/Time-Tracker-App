@@ -9,6 +9,7 @@ import java.util.List;
 public class Storage {
     private final LocalStorage localStorage = new LocalStorage();
     //* CloudStorage => for the Future if needed
+
     private static Storage SingletonInstance;
 
     public static Storage instanse() {
@@ -48,7 +49,7 @@ public class Storage {
     }
 
     public void editTask(Task task) {
-
+        localStorage.editTask(task);
     }
 
     public void deleteTask(Task task) {
