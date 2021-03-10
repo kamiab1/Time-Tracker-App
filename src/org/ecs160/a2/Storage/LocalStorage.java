@@ -1,5 +1,7 @@
 package org.ecs160.a2.Storage;
 import com.codename1.io.Storage;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
@@ -8,7 +10,8 @@ import org.ecs160.a2.Model.Task;
 import org.ecs160.a2.Model.TimeWindow;
 
 public class LocalStorage {
-
+    private SimpleDateFormat formatter =
+            new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
     /****************** public *******************/
 
 
@@ -59,6 +62,7 @@ public class LocalStorage {
 
     public void deleteTask(Task task) {
         deleteSingularTaskObject(task.name);
+        deleteTaskTimeList(task.name);
         removeFromTaskNameList(task.name);
     }
 
@@ -83,7 +87,9 @@ public class LocalStorage {
     private void addToTaskTimeList(String taskName) {
         Vector TimeListVector = new Vector();
         final List<String> timeList = getTaskTimeList(taskName);
-        final String time = new Date().toString();
+
+        final String time = formatter.format(new Date());
+        //new Date().toString();
 
         timeList.add(time);
         TimeListVector.addElement(timeList);
@@ -95,7 +101,7 @@ public class LocalStorage {
     private List<String> getTaskTimeList(String taskName) {
         String path = taskName + "time";
         Vector TimeListVector = (Vector)Storage.getInstance().readObject(path);
-        System.out.print(TimeListVector);
+        //System.out.print(TimeListVector);
         if (TimeListVector == null || TimeListVector.isEmpty()) {
             return new ArrayList<String>();
         } else {
@@ -156,6 +162,11 @@ public class LocalStorage {
     private void deleteSingularTaskObject(String name) {
         Storage.getInstance().deleteStorageFile(name);
     }
+    private void deleteTaskTimeList(String name) {
+        String path = name + "path";
+        Storage.getInstance().deleteStorageFile(path);
+    }
+
     public void deleteAllNames() {
         Storage.getInstance().deleteStorageFile("allTasks");
     }

@@ -14,7 +14,7 @@ public class EditPageUI
     private final Storage storage = Storage.instanse();
     private Form scaffold;
     private Task currentTask;
-    private TextField taskName;
+//    private TextField taskName;
     private TextField taskDescription;
     private TextField taskSize;
     public void startUI(Task task) {
@@ -36,17 +36,16 @@ public class EditPageUI
     }
 
     private void updateBtn() {
-        String nameText = taskName.getText();
+//        String nameText = taskName.getText();
         String descriptionText = taskDescription.getText();
         String taskSizeText = taskSize.getText();
 
         Task newTask = currentTask;
         System.out.print("before to change " + newTask.name);
-        if (!nameText.equals("")) {
-            System.out.print("hereee");
-            newTask.name = nameText;
-
-        }
+//        if (!nameText.equals("")) {
+//            System.out.print("hereee");
+//            newTask.name = nameText;
+//        }
         if (!taskSizeText.equals("")) {
             newTask.size = taskSizeText;
         }
@@ -63,7 +62,7 @@ public class EditPageUI
     }
 
     private void clearFields() {
-        taskName.clear();
+        //taskName.clear();
         taskDescription.clear();
         taskSize.clear();
     }
@@ -83,13 +82,14 @@ public class EditPageUI
     }
 
     private void setUpButtons() {
-        taskName = new TextField("", "Re-name", 20, TextArea.ANY);
+       // taskName = new TextField("", "Re-name", 20, TextArea.ANY);
         taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button updateButton = new Button("update");
         Button Back = new Button("Back");
 
-        scaffold.add(taskName)
+        scaffold
+                //.add(taskName)
                 .add(taskDescription)
                 .add(taskSize)
                 .add(updateButton)

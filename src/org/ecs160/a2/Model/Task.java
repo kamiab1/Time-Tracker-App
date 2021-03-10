@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Task {
     public String name;
@@ -25,6 +26,12 @@ public class Task {
 
     private List<TimeWindow> parseTimeWindow(List<String> timeList) {
         List<TimeWindow> windowList = new ArrayList<TimeWindow>();
+        //System.out.print(timeList);
+        windowDurationList = timeList
+                .stream()
+                .map(this::parseTimeString)
+                .collect(Collectors.toList());
+        System.out.print(windowDurationList);
         return windowList;
     }
 
@@ -77,10 +84,15 @@ public class Task {
 
 
     /******* private helpers *******/
-    private Date parseTime(String time) throws ParseException {
+    private Date parseTimeString(String time)  {
         DateFormat format =
-                new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        return format.parse(time);
+                new SimpleDateFormat("dd-M-yyy hh:mm:ss");
+        try {
+            return format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Date();
+        }
     }
 }
 
