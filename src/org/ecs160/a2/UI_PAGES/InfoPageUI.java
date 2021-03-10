@@ -5,6 +5,11 @@ import com.codename1.ui.table.TableLayout;
 
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.codename1.ui.CN.getCurrentForm;
 
 
@@ -111,8 +116,14 @@ public class InfoPageUI {
         statusLabel.setText("Activity status: " + currentTask.isRunning);
         descriptionLabel.setText("Description: "+ currentTask.description);
         sizeLabel.setText("size: "+ currentTask.size);
-//        minTimeLabel.setText("Min time: "+ currentTask.getMinDuration());
-//        maxTimeLabel.setText("Max time: "+ currentTask.getMaxDuration());
+        minTimeLabel.setText("Min time: "+ durationToTimePassed(currentTask.getMinDuration()));
+        maxTimeLabel.setText("Max time: "+ durationToTimePassed(currentTask.getMaxDuration()));
+        avgTimeLabel.setText("Avg time: "+durationToTimePassed(currentTask.getAvgDuration()));
+    }
+
+    private String durationToTimePassed(Date time){
+        DateFormat format = new SimpleDateFormat("mm:ss");
+        return format.format(time);
     }
 
     private void goBack() {

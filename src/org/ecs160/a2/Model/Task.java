@@ -4,6 +4,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class Task {
@@ -14,7 +17,7 @@ public class Task {
     public Date startTime;
     public Date endTime;
     private List<TimeWindow> timeWindowList = new ArrayList<TimeWindow>();
-
+    private List<TimeWindow> sorted = null;
 
     public Task(String name, Map<String, String> map, List<String> timeList)  {
         this.name = name;
@@ -32,17 +35,26 @@ public class Task {
                 .map(this::parseTimeString)
                 .collect(Collectors.toList());
 
-        System.out.print(allDatesList);
+        AtomicBoolean hasStarted = new AtomicBoolean(false);
+        TimeWindow timeWindow = new TimeWindow();
+
+        allDatesList.forEach(eachTime -> {
+            if (!hasStarted.get()) {
+                hasStarted.set(true);
+                timeWindow.start(eachTime);
+            } else {
+                hasStarted.set(false);
+                timeWindow.end(eachTime);
+                windowList.add(timeWindow);
+            }
+        });
 
         return windowList;
     }
 
 
     public Boolean getIsRunning() {
-         if (isRunning.equals("true")) {
-             return true;
-         } else
-             return false;
+        return isRunning.equals("true");
     }
 
     /*************** Public ****************/
@@ -61,16 +73,34 @@ public class Task {
     }
 
     public Date getMinDuration() {
-        List<TimeWindow> sorted = sort();
-        return sorted.get(0).getDuration();
+        if (sort().isEmpty()) {
+            return new Date();
+        }
+        else  {
+            return sort()
+                    .stream()
+                    .findFirst()
+                    .get()
+                    .getDuration();
+        }
     }
 
     public Date getMaxDuration() {
-        List<TimeWindow> sorted = sort();
-        return sorted.get(sorted.size() -1).getDuration();
+        if (sort().isEmpty()) {
+            return new Date();
+        }
+        else  {
+            return sort().get(sort().size() -1).getDuration();
+        }
     }
 
+    // TODO : check for when size is 0
+
     public Date getAvgDuration() {
+        if (timeWindowList.size() == 0) {
+            return new Date();
+        }
+
         long totalTime = 0, avgTime = 0;
         for (TimeWindow timeWindow : timeWindowList) {
             totalTime = totalTime + timeWindow.getDuration().getTime();
@@ -96,8 +126,10 @@ public class Task {
     }
 
     private List<TimeWindow> sort() {
-        List<TimeWindow> sorted = timeWindowList;
-        sorted.sort(Comparator.comparing(TimeWindow::getDuration));
+        if (sorted == null) {
+            sorted = timeWindowList;
+            sorted.sort(Comparator.comparing(TimeWindow::getDuration));
+        }
         return sorted;
     }
 }
