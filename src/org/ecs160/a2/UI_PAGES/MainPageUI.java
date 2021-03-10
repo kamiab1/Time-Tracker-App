@@ -36,11 +36,11 @@ public class MainPageUI
         setUpLayout();
         toolBarSetup();
         Container taskListView = createListViewContainer();
-        //store.deletaALLname();
         List<Task> taskList = getAllTasks();
 
         // this shows the list of all tasks
         taskList.forEach( eachTask -> {
+
             Container taskContainer = makeTaskContainer();
             MultiButton taskButton = makeTaskBtn(eachTask);
 

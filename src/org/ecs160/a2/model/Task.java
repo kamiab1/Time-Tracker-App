@@ -39,6 +39,9 @@ public class Task {
 //    }
 
 
+    public List<TimeWindow> getTimeWindowList() {
+        return timeWindowList;
+    }
 
     public Date getTotalDuration() {
         long totalTime = 0;
