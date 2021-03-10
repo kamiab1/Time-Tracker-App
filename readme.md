@@ -4,8 +4,7 @@
 
 ###### Contributors
 Kamyab Ayanifard  
-Tommy Saechao  
-Thanh (Eric) Hoang  
+Tommy Saechao   
 
 
 ## Contributing
