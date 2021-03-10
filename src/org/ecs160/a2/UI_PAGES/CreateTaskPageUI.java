@@ -47,6 +47,7 @@ public class CreateTaskPageUI
         Map<String, String> taskMap = new HashMap<>();
         taskMap.put("size", sizeText);
         taskMap.put("description",  descriptionText);
+        taskMap.put("isRunning",  "false");
         taskMap.put("startTime",  new Date().toString());
         taskMap.put("endTime", new Date().toString());
         List<String> timeList = new ArrayList<String>();

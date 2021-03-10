@@ -3,6 +3,7 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.components.MultiButton;
@@ -54,12 +55,7 @@ public class MainPageUI
         scaffold.show();
     }
 
-    private Label makeActivityLabel(Task eachTask) {
-        Label activity = new Label(eachTask.isRunning);
-        activity.setUIID(eachTask + "activity");
-       // activity.style
-        return activity;
-    }
+
 
 
     /*************** General functions ****************/
@@ -97,13 +93,6 @@ public class MainPageUI
         return taskListView;
     }
 
-    private MultiButton makeTaskBtn(Task eachTask) {
-        MultiButton taskButton = new MultiButton(eachTask.name);
-        taskButton.setWidth(scaffold.getWidth());
-        taskButton.addActionListener((e)-> goToInfoPage(eachTask));
-        return taskButton;
-    }
-
     private Container makeTaskContainer(Task eachTask) {
         Container container = new Container(BoxLayout.x());
         container.setUIID(eachTask.name);
@@ -113,8 +102,34 @@ public class MainPageUI
         container.setWidth(scaffold.getWidth());
         container.setY(scaffold.getHeight());
 
-
         return container;
+    }
+
+
+    private MultiButton makeTaskBtn(Task eachTask) {
+        MultiButton taskButton = new MultiButton(eachTask.name);
+        taskButton.setWidth(scaffold.getWidth());
+        taskButton.addActionListener((e)-> goToInfoPage(eachTask));
+        return taskButton;
+    }
+
+
+    private Label makeActivityLabel(Task eachTask) {
+
+        Label activity = new Label(eachTask.isRunning);
+        activity.setUIID(eachTask.name + "activity");
+        activity.getStyle().setBgTransparency(255, true);
+
+        if (eachTask.getIsRunning()) {
+            activity.setText("Active");
+            activity.getStyle().setBgColor(0x00bf13);
+        }
+        else {
+            activity.setText("Inactive");
+            activity.getStyle().setBgColor(0xbf0026);
+        }
+
+        return activity;
     }
 
 
