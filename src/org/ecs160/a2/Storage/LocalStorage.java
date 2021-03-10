@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import org.ecs160.a2.Model.Task;
+import org.ecs160.a2.Model.TimeWindow;
 
 public class LocalStorage {
 
@@ -16,12 +17,14 @@ public class LocalStorage {
     public Task getTask(String taskName) {
         Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
         Map<String, String> taskMap = new HashMap<>();
-
+        List<String> timeList;
         if (taskVector == null || taskVector.isEmpty()) {
-            return new Task(taskName, taskMap);
+            timeList = new ArrayList<String>();
+            return new Task(taskName, taskMap,timeList);
         } else {
             taskMap = (Map<String, String>) taskVector.get(0);
-            return new Task(taskName, taskMap);
+            timeList = getTaskTimeList(taskName);
+            return new Task(taskName, taskMap,timeList);
         }
     }
 
@@ -60,12 +63,14 @@ public class LocalStorage {
     }
 
     public void startTask(Task task) {
+        task.isRunning = "true";
         saveTaskOnDisk(task);
         addToTaskTimeList(task.name);
     }
 
 
     public void stopTask(Task task) {
+        task.isRunning = "false";
         saveTaskOnDisk(task);
         addToTaskTimeList(task.name);
     }
@@ -82,12 +87,16 @@ public class LocalStorage {
 
         timeList.add(time);
         TimeListVector.addElement(timeList);
-        Storage.getInstance().writeObject(taskName, TimeListVector);
+
+        String path = taskName + "time";
+        Storage.getInstance().writeObject(path, TimeListVector);
     }
 
     private List<String> getTaskTimeList(String taskName) {
-        Vector TimeListVector = (Vector)Storage.getInstance().readObject(taskName);
-        if (TimeListVector == null) {
+        String path = taskName + "time";
+        Vector TimeListVector = (Vector)Storage.getInstance().readObject(path);
+        System.out.print(TimeListVector);
+        if (TimeListVector == null || TimeListVector.isEmpty()) {
             return new ArrayList<String>();
         } else {
             return (List<String>) TimeListVector.get(0);

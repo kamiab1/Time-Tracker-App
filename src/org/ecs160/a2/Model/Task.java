@@ -15,29 +15,28 @@ public class Task {
     private List<TimeWindow> timeWindowList = new ArrayList<TimeWindow>();
     private List<Date> windowDurationList = new ArrayList<Date>();
 
-    public Task(String name, Map<String, String> map)  {
+    public Task(String name, Map<String, String> map, List<String> timeList)  {
         this.name = name;
         this.description = map.get("description");
         this.isRunning = map.get("isRunning");
         this.size = map.get("size");
-
+        this.timeWindowList = parseTimeWindow(timeList);
     }
 
-    // FACTORY
-//    public Task(String name,String description, String size)  {
-//        this.name = name;
-//        this.description = description;
-//        this.size = size;
-//        this.isRunning = "false";
-//        this.startTime = new Date();// parseTime(map.get("startTime"));
-//        this.endTime = new Date();//parseTime(map.get("endTime"));
-//    }
-//
-//    public static Task initTaskFromMap(String name, Map<String, String> map) {
-//        String description = map.get("description");
-//        String size = map.get("size");
-//        return new Task(name,description,size);
-//    }
+    private List<TimeWindow> parseTimeWindow(List<String> timeList) {
+        List<TimeWindow> windowList = new ArrayList<TimeWindow>();
+        return windowList;
+    }
+
+
+    public Boolean getIsRunning() {
+         if (isRunning.equals("true")) {
+             return true;
+         } else
+             return false;
+    }
+
+    /*************** Public ****************/
 
 
     public List<TimeWindow> getTimeWindowList() {
@@ -73,6 +72,10 @@ public class Task {
         return new Date(avgTime);
     }
 
+
+    /*************** Private ****************/
+
+
     /******* private helpers *******/
     private Date parseTime(String time) throws ParseException {
         DateFormat format =
@@ -80,3 +83,19 @@ public class Task {
         return format.parse(time);
     }
 }
+
+// FACTORY
+//    public Task(String name,String description, String size)  {
+//        this.name = name;
+//        this.description = description;
+//        this.size = size;
+//        this.isRunning = "false";
+//        this.startTime = new Date();// parseTime(map.get("startTime"));
+//        this.endTime = new Date();//parseTime(map.get("endTime"));
+//    }
+//
+//    public static Task initTaskFromMap(String name, Map<String, String> map) {
+//        String description = map.get("description");
+//        String size = map.get("size");
+//        return new Task(name,description,size);
+//    }

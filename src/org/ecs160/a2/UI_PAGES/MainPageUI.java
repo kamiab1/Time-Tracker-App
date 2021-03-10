@@ -43,9 +43,10 @@ public class MainPageUI
 
             Container taskContainer = makeTaskContainer();
             MultiButton taskButton = makeTaskBtn(eachTask);
+            TextComponent activityText = makeActivityComponent(eachTask);
 
             taskContainer.addComponent(taskButton);
-            // TODO: Add more components
+            taskContainer.addComponent(activityText);
 
             taskListView.addComponent(taskContainer);
         });
@@ -53,6 +54,10 @@ public class MainPageUI
         scaffold.show();
     }
 
+    private TextComponent makeActivityComponent(Task eachTask) {
+        TextComponent activity = new TextComponent().label(eachTask.isRunning);
+        return  activity;
+    }
 
 
     /*************** General functions ****************/

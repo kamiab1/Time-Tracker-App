@@ -6,8 +6,11 @@ import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Custom_UI.CustomButton;
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static com.codename1.ui.CN.getCurrentForm;
 
@@ -46,7 +49,8 @@ public class CreateTaskPageUI
         taskMap.put("description",  descriptionText);
         taskMap.put("startTime",  new Date().toString());
         taskMap.put("endTime", new Date().toString());
-        Task task = new Task(nameText,taskMap);
+        List<String> timeList = new ArrayList<String>();
+        Task task = new Task(nameText,taskMap, timeList);
         storage.addTask(task);
 
         clearFields();

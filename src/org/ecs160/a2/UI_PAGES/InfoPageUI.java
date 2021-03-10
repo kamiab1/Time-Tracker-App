@@ -99,6 +99,7 @@ public class InfoPageUI {
         deleteButton.addActionListener((e) -> deleteThisTask());
         startButton.addActionListener((e) -> startThisTask());
         stopButton.addActionListener((e) -> stopThisTask());
+
     }
 
 
