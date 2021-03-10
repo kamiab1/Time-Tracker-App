@@ -111,6 +111,8 @@ public class InfoPageUI {
         statusLabel.setText("Activity status: " + currentTask.isRunning);
         descriptionLabel.setText("Description: "+ currentTask.description);
         sizeLabel.setText("size: "+ currentTask.size);
+//        minTimeLabel.setText("Min time: "+ currentTask.getMinDuration());
+//        maxTimeLabel.setText("Max time: "+ currentTask.getMaxDuration());
     }
 
     private void goBack() {

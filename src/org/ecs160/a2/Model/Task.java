@@ -14,7 +14,7 @@ public class Task {
     public Date startTime;
     public Date endTime;
     private List<TimeWindow> timeWindowList = new ArrayList<TimeWindow>();
-    private List<Date> windowDurationList = new ArrayList<Date>();
+
 
     public Task(String name, Map<String, String> map, List<String> timeList)  {
         this.name = name;
@@ -26,12 +26,14 @@ public class Task {
 
     private List<TimeWindow> parseTimeWindow(List<String> timeList) {
         List<TimeWindow> windowList = new ArrayList<TimeWindow>();
-        //System.out.print(timeList);
-        windowDurationList = timeList
+
+        List<Date> allDatesList = timeList
                 .stream()
                 .map(this::parseTimeString)
                 .collect(Collectors.toList());
-        System.out.print(windowDurationList);
+
+        System.out.print(allDatesList);
+
         return windowList;
     }
 
@@ -52,30 +54,28 @@ public class Task {
 
     public Date getTotalDuration() {
         long totalTime = 0;
-        for (Date time : windowDurationList) {
-            totalTime = totalTime + time.getTime();
+        for (TimeWindow timeWindow : timeWindowList) {
+            totalTime = totalTime + timeWindow.getDuration().getTime();
         }
         return new Date(totalTime);
     }
 
     public Date getMinDuration() {
-        List<Date> sorted = windowDurationList;
-        sorted.sort(Date::compareTo);
-        return sorted.get(0);
+        List<TimeWindow> sorted = sort();
+        return sorted.get(0).getDuration();
     }
 
     public Date getMaxDuration() {
-        List<Date> sorted = windowDurationList;
-        Collections.sort(sorted, (a, b) -> a.compareTo(b));
-        return sorted.get(sorted.size() -1);
+        List<TimeWindow> sorted = sort();
+        return sorted.get(sorted.size() -1).getDuration();
     }
 
     public Date getAvgDuration() {
         long totalTime = 0, avgTime = 0;
-        for (Date time : windowDurationList) {
-            totalTime = totalTime + time.getTime();
+        for (TimeWindow timeWindow : timeWindowList) {
+            totalTime = totalTime + timeWindow.getDuration().getTime();
         }
-        avgTime = totalTime / windowDurationList.size();
+        avgTime = totalTime / timeWindowList.size();
         return new Date(avgTime);
     }
 
@@ -93,6 +93,12 @@ public class Task {
             e.printStackTrace();
             return new Date();
         }
+    }
+
+    private List<TimeWindow> sort() {
+        List<TimeWindow> sorted = timeWindowList;
+        sorted.sort(Comparator.comparing(TimeWindow::getDuration));
+        return sorted;
     }
 }
 

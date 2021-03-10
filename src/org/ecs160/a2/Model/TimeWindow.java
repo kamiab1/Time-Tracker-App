@@ -15,16 +15,22 @@ public class TimeWindow {
     }
 
     public Date getDuration () {
-        return new Date(this.end.getTime()
-                - this.start.getTime());
+        return new Date(getStart().getTime() - getEnd().getTime());
     }
 
     public Date getStart() {
-        return start;
+        if (this.start == null) {
+            return new Date();
+        } else {
+            return this.start;
+        }
     }
-
     public Date getEnd() {
-        return end;
+        if (this.end == null) {
+            return new Date();
+        } else {
+            return this.end;
+        }
     }
 
 }
