@@ -2,7 +2,9 @@ package org.ecs160.a2.Storage;
 import com.codename1.io.Storage;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import org.ecs160.a2.model.Task;
+import java.util.stream.Collectors;
+
+import org.ecs160.a2.Model.Task;
 
 public class LocalStorage {
 
@@ -13,37 +15,37 @@ public class LocalStorage {
 
     public Task getTask(String taskName) {
         Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
-        Map<String, String> taskMap  = new HashMap<>();
+        Map<String, String> taskMap = new HashMap<>();
+
         if (taskVector == null || taskVector.isEmpty()) {
-            return  new Task(taskName,taskMap);
+            return new Task(taskName, taskMap);
         } else {
             taskMap = (Map<String, String>) taskVector.get(0);
-            return new Task(taskName,taskMap);
+            return new Task(taskName, taskMap);
         }
     }
 
     public List<Task> getAllTasks () {
-        final List<Task> taskList = new ArrayList<Task>();
         final List<String> taskNamesList = getTaskNameList();
-        taskNamesList.forEach((taskName) -> {
-            Task task = getTask(taskName);
-            taskList.add(task);
-        });
-        return taskList;
+
+        return taskNamesList
+                .stream()
+                .map(this::getTask)
+                .collect(Collectors.toList());
     }
 
 
     /******** SET ********/
 
     public void addTask(Task task) {
-        String taskName = task.name;
-        if (doesTaskExist(taskName) || taskName.equals("") ) {
+
+        if (doesTaskExist(task.name) || task.name.equals("") ) {
             System.out.print("this task already exists \n");
             return;
         }
 
         saveTaskOnDisk(task);
-        addToTaskNameList(taskName);
+        addToTaskNameList(task.name);
     }
 
     public void editTask(Task newTask, Task oldTask) {

@@ -1,10 +1,10 @@
 package org.ecs160.a2.Storage;
 
-import org.ecs160.a2.model.Task;
+import org.ecs160.a2.Model.Task;
 import java.util.List;
 
 
-/** Flexibility to add CloudStorage in the future **/
+/** This gives flexibility to add CloudStorage in the future **/
 
 public class Storage {
     private final LocalStorage localStorage = new LocalStorage();

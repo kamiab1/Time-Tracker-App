@@ -3,9 +3,8 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
-import org.ecs160.a2.Storage.LocalStorage;
 import org.ecs160.a2.Storage.Storage;
-import org.ecs160.a2.model.Task;
+import org.ecs160.a2.Model.Task;
 import static com.codename1.ui.CN.getCurrentForm;
 
 public class EditPageUI
@@ -52,7 +51,7 @@ public class EditPageUI
             newTask.size = taskSizeText;
         }
         if (!descriptionText.equals("")) {
-            newTask.name = descriptionText;
+            newTask.description = descriptionText;
         }
         System.out.print("\n about to change " + newTask.name);
         storage.editTask(newTask, currentTask);
