@@ -41,9 +41,9 @@ public class MainPageUI
         // this shows the list of all tasks
         taskList.forEach( eachTask -> {
 
-            Container taskContainer = makeTaskContainer();
+            Container taskContainer = makeTaskContainer(eachTask);
             MultiButton taskButton = makeTaskBtn(eachTask);
-            TextComponent activityText = makeActivityComponent(eachTask);
+            Label activityText = makeActivityLabel(eachTask);
 
             taskContainer.addComponent(taskButton);
             taskContainer.addComponent(activityText);
@@ -54,9 +54,11 @@ public class MainPageUI
         scaffold.show();
     }
 
-    private TextComponent makeActivityComponent(Task eachTask) {
-        TextComponent activity = new TextComponent().label(eachTask.isRunning);
-        return  activity;
+    private Label makeActivityLabel(Task eachTask) {
+        Label activity = new Label(eachTask.isRunning);
+        activity.setUIID(eachTask + "activity");
+       // activity.style
+        return activity;
     }
 
 
@@ -75,6 +77,7 @@ public class MainPageUI
     /*************** UI functions ****************/
 
     private void setUpLayout() {
+
         scaffold = new Form("Task List", new BorderLayout());
     }
 
@@ -101,10 +104,16 @@ public class MainPageUI
         return taskButton;
     }
 
-    private Container makeTaskContainer() {
+    private Container makeTaskContainer(Task eachTask) {
         Container container = new Container(BoxLayout.x());
+        container.setUIID(eachTask.name);
+        container.getStyle().setBgColor(0xfcba03);
+        container.getStyle().setBgTransparency(255);
+
         container.setWidth(scaffold.getWidth());
         container.setY(scaffold.getHeight());
+
+
         return container;
     }
 
