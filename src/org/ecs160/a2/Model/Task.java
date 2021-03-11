@@ -117,8 +117,9 @@ public class Task {
     /******* private helpers *******/
     private Date parseTimeString(String time)  {
         DateFormat format =
-                new SimpleDateFormat("dd-M-yyy hh:mm:ss");
+                new SimpleDateFormat("HH:mm:ss");
         try {
+            System.out.println(time);
             return format.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
