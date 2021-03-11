@@ -36,12 +36,14 @@ public class InfoPageUI {
 
     public void startUI(Task task) {
         currentTask = task;
+
         System.out.print(" \n received data :" + currentTask.name);
         if(scaffold != null){
             initData(); // needs testing
             scaffold.show();
             return;
         }
+
         scaffold = new Form("Current Task: " + currentTask.name, new BorderLayout());
 
         setUpLayout();
@@ -94,18 +96,19 @@ public class InfoPageUI {
     /*************** General functions ****************/
 
     private void initData() {
-        System.out.print(" \n called to show data \n ");
+
+        scaffold.setTitle("Current Task: " + currentTask.name);
         statusLabel.setText("Activity status: " + currentTask.isRunning);
         descriptionLabel.setText("Description: "+ currentTask.description);
         sizeLabel.setText("size: "+ currentTask.size);
 
-        minTimeLabel.setText("Min time: "+ durationToTimePassed(currentTask.getMinDuration()));
+        minTimeLabel.setText("Min time: "+ currentTask.getMinDuration());
         maxTimeLabel.setText("Max time: "+ durationToTimePassed(currentTask.getMaxDuration()));
         avgTimeLabel.setText("Avg time: "+ durationToTimePassed(currentTask.getAvgDuration()));
     }
 
     private String durationToTimePassed(Date time){
-        DateFormat format = new SimpleDateFormat("mm:ss");
+        DateFormat format = new SimpleDateFormat("hh:mm:ss");
         return format.format(time);
     }
 

@@ -7,6 +7,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.events.ActionEvent;
+import org.ecs160.a2.Custom_UI.CustomLabel;
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
 import java.util.List;
@@ -42,12 +43,15 @@ public class MainPageUI
         taskList.forEach( eachTask -> {
 
             Container taskContainer = makeTaskContainer(eachTask);
-            MultiButton taskButton = makeTaskBtn(eachTask);
-            Label activityText = makeActivityLabel(eachTask);
+            Button taskButton = makeTaskBtn(eachTask);
+            Label activityLabel = makeActivityLabel(eachTask);
+            Label durationLabel = makeDurationLabel(eachTask);
 
+            taskContainer.setLeadComponent(taskButton);
             taskContainer.addComponent(taskButton);
-            taskContainer.addComponent(activityText);
-            //taskContainer.setLeadComponent(taskButton);
+            taskContainer.addComponent(durationLabel);
+            taskContainer.addComponent(activityLabel);
+
 
             taskListView.addComponent(taskContainer);
         });
@@ -96,7 +100,7 @@ public class MainPageUI
     private Container makeTaskContainer(Task eachTask) {
         Container container = new Container(BoxLayout.x());
         container.setUIID(eachTask.name);
-        container.getStyle().setBgColor(0xfcba03);
+        container.getStyle().setBgColor(0xffffff);
         container.getStyle().setBgTransparency(255);
 
         container.setWidth(scaffold.getWidth());
@@ -107,8 +111,8 @@ public class MainPageUI
     }
 
 
-    private MultiButton makeTaskBtn(Task eachTask) {
-        MultiButton taskButton = new MultiButton(eachTask.name);
+    private Button makeTaskBtn(Task eachTask) {
+        Button taskButton = new Button(eachTask.name);
         taskButton.setWidth(scaffold.getWidth());
         taskButton.addActionListener((e)-> goToInfoPage(eachTask));
         return taskButton;
@@ -123,15 +127,28 @@ public class MainPageUI
 
         if (eachTask.getIsRunning()) {
             activity.setText("Active");
-            activity.getStyle().setBgColor(0x00bf13);
-            activity.getStyle().setFgColor(0xfcba03);
+
+            activity.getStyle().setFgColor(0x00bf13);
         }
         else {
             activity.setText("Inactive");
-            activity.getStyle().setBgColor(0xbf0026);
+            activity.getStyle().setFgColor(0xbf0026);
         }
 
         return activity;
+    }
+
+    private Label makeDurationLabel(Task eachTask) {
+
+        // TODO:
+
+        //Label duration = new CustomLabel().createForFont("time: " + eachTask.description);
+        // TODO: change
+        Label duration = new Label("time: " + "3:23:05");
+        duration.setUIID(eachTask.name + "duration");
+        duration.getStyle().setBgTransparency(255, true);
+        duration.getStyle().setFgColor(0x000000);
+        return duration;
     }
 
 

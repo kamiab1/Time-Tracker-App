@@ -9,7 +9,7 @@ import org.ecs160.a2.Model.TimeWindow;
 
 public class LocalStorage {
     private SimpleDateFormat formatter =
-            new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            new SimpleDateFormat("hh:mm:ss");
     /****************** public *******************/
 
 
