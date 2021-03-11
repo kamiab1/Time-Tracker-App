@@ -1,5 +1,6 @@
 package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 
@@ -19,7 +20,6 @@ public class InfoPageUI {
 
     private final Storage storage = Storage.instanse();
     private Form scaffold;
-    private final Button backButton = new Button("Back");
     private final Label statusLabel = new Label("Status");
     private final Button startButton = new Button("Start");
     private final Button stopButton = new Button("Stop");
@@ -46,23 +46,7 @@ public class InfoPageUI {
 
         setUpLayout();
         setUpButtons();
-        new ToolbarUI(scaffold);
-        // back btn ?
-
-//        Button test = new Button("Test");
-//        test.addActionListener((e) -> {
-//            scaffold.setToolbar(new Toolbar());
-//            scaffold.setBackCommand(new Command("Back") {
-//
-//                public void actionPerformed(ActionEvent evt) {
-//                    scaffold.showBack();
-//                }
-//            });
-//            scaffold.show();
-//        });
-
-
-
+        initBackButton();
         initData();
         scaffold.show();
     }
@@ -82,7 +66,6 @@ public class InfoPageUI {
         scaffold.setLayout(tl);
 
         scaffold.
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), backButton).
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), statusLabel).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), startButton).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), stopButton).
@@ -100,7 +83,6 @@ public class InfoPageUI {
 
     private void setUpButtons() {
         editButton.addActionListener((e) -> EditPageUI.editPage.startUI(currentTask));
-        backButton.addActionListener((e) -> goBack());
         deleteButton.addActionListener((e) -> deleteThisTask());
         startButton.addActionListener((e) -> startThisTask());
         stopButton.addActionListener((e) -> stopThisTask());
@@ -154,5 +136,23 @@ public class InfoPageUI {
             ((Dialog) scaffold).dispose();
             scaffold = getCurrentForm();
         }
+    }
+
+    /*TODO: Abstract this method into ToolBarUI.
+    We need to find out how to pass in the back() function as an argument in
+    order to abstract this.
+     */
+    public void initBackButton()
+    {
+        Command backCommand = new Command("Back")
+        {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                goBack();
+            }
+        };
+
+        Toolbar toolbar = scaffold.getToolbar();
+        toolbar.setBackCommand(backCommand);
     }
 }

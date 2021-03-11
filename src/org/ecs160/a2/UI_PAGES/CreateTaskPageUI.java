@@ -1,6 +1,7 @@
 package org.ecs160.a2.UI_PAGES;
 
 import com.codename1.ui.*;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Custom_UI.CustomButton;
@@ -33,6 +34,7 @@ public class CreateTaskPageUI
         }
         setUpPageLayout();
         setUpButtons();
+        initBackButton();
         scaffold.show();
     }
 
@@ -63,7 +65,7 @@ public class CreateTaskPageUI
         taskSize.clear();
     }
 
-    private void backBtn() {
+    private void goBack() {
         MainPageUI.mainPage.startUI();
         stopUI();
     }
@@ -89,16 +91,13 @@ public class CreateTaskPageUI
         taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button createButton = new Button("Create");
-        Button Back = new CustomButton("back").getButton();
 
         scaffold.add(taskName)
                 .add(taskDescription)
                 .add(taskSize)
-                .add(createButton)
-                .add(Back);
+                .add(createButton);
 
         createButton.addActionListener((e) -> createBtn());
-        Back.addActionListener((e) -> backBtn());
     }
 
 
@@ -112,6 +111,24 @@ public class CreateTaskPageUI
             ((Dialog)current).dispose();
             current = getCurrentForm();
         }
+    }
+
+    /*TODO: Abstract this method into ToolBarUI.
+    We need to find out how to pass in the back() function as an argument in
+    order to abstract this.
+     */
+    public void initBackButton()
+    {
+        Command backCommand = new Command("Back")
+        {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                goBack();
+            }
+        };
+
+        Toolbar toolbar = scaffold.getToolbar();
+        toolbar.setBackCommand(backCommand);
     }
 
 

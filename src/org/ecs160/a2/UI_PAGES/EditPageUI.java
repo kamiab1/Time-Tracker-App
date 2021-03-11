@@ -1,6 +1,7 @@
 package org.ecs160.a2.UI_PAGES;
 
 import com.codename1.ui.*;
+import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Storage.Storage;
@@ -25,12 +26,13 @@ public class EditPageUI
         }
         setUpPageLayout(task);
         setUpButtons();
+        initBackButton();
         scaffold.show();
     }
 
 
 
-    private void backBtn() {
+    private void goBack() {
         InfoPageUI.infoPage.startUI(currentTask);
         stopUI();
     }
@@ -86,17 +88,14 @@ public class EditPageUI
         taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button updateButton = new Button("update");
-        Button Back = new Button("Back");
 
         scaffold
                 .add(taskName)
                 .add(taskDescription)
                 .add(taskSize)
-                .add(updateButton)
-                .add(Back);
+                .add(updateButton);
 
         updateButton.addActionListener((e) -> updateBtn());
-        Back.addActionListener((e) -> backBtn());
     }
 
     public void stopUI() {
@@ -105,5 +104,23 @@ public class EditPageUI
             ((Dialog)scaffold).dispose();
             scaffold = getCurrentForm();
         }
+    }
+
+    /*TODO: Abstract this method into ToolBarUI.
+    We need to find out how to pass in the back() function as an argument in
+    order to abstract this.
+     */
+    public void initBackButton()
+    {
+        Command backCommand = new Command("Back")
+        {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                goBack();
+            }
+        };
+
+        Toolbar toolbar = scaffold.getToolbar();
+        toolbar.setBackCommand(backCommand);
     }
 }
