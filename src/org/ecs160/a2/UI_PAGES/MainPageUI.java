@@ -47,6 +47,7 @@ public class MainPageUI
 
             taskContainer.addComponent(taskButton);
             taskContainer.addComponent(activityText);
+            //taskContainer.setLeadComponent(taskButton);
 
             taskListView.addComponent(taskContainer);
         });
@@ -101,6 +102,7 @@ public class MainPageUI
         container.setWidth(scaffold.getWidth());
         container.setY(scaffold.getHeight());
 
+
         return container;
     }
 
@@ -122,6 +124,7 @@ public class MainPageUI
         if (eachTask.getIsRunning()) {
             activity.setText("Active");
             activity.getStyle().setBgColor(0x00bf13);
+            activity.getStyle().setFgColor(0xfcba03);
         }
         else {
             activity.setText("Inactive");

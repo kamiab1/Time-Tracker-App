@@ -16,10 +16,17 @@ public class LocalStorage {
     /******** GET ********/
 
     public Task getTask(String taskName) {
+        List<String> timeList;
+
+        if (taskName.equals("")) {
+            timeList = new ArrayList<String>();
+            Map<String, String> taskMap  = new HashMap<>();
+            return new Task(taskName,taskMap, timeList);
+        }
 
         Vector taskVector = (Vector)Storage.getInstance().readObject(taskName);
         Map<String, String> taskMap = new HashMap<>();
-        List<String> timeList;
+
 
         if (taskVector == null || taskVector.isEmpty()) {
             timeList = new ArrayList<String>();

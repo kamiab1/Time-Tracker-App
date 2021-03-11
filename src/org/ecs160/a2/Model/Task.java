@@ -52,7 +52,10 @@ public class Task {
 
 
     public Boolean getIsRunning() {
-        return isRunning.equals("true");
+        if (isRunning == null)
+            return false;
+        else
+            return isRunning.equals("true");
     }
 
     /*************** Public ****************/
