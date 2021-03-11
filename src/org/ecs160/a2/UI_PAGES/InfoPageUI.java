@@ -20,15 +20,21 @@ public class InfoPageUI {
 
     private final Storage storage = Storage.instanse();
     private Form scaffold;
-    private final Label statusLabel = new Label("Status");
+    private final Label statusLabel = new Label("Activity status: ");
+    private final Label statusValue = new Label("");
     private final Button startButton = new Button("Start");
     private final Button stopButton = new Button("Stop");
-    private final Label descriptionLabel = new Label("Description");
-    private final Label sizeLabel = new Label("Size");
+    private final Label descriptionLabel = new Label("Description: ");
+    private final Label descriptionValue = new Label("");
+    private final Label sizeLabel = new Label("Size: ");
+    private final Label sizeValue = new Label("");
     private final Label taskDataLabel = new Label("Task Data");
     private final Label minTimeLabel = new Label("Min Time: ");
+    private final Label minTimeValue = new Label("");
     private final Label maxTimeLabel = new Label("Max Time: ");
+    private final Label maxTimeValue = new Label("");
     private final Label avgTimeLabel = new Label("Avg Time: ");
+    private final Label avgTimeValue = new Label("");
     private final Button deleteButton = new Button("Delete");
     private final Button editButton = new Button("Edit");
     private Task currentTask;
@@ -68,16 +74,22 @@ public class InfoPageUI {
         scaffold.setLayout(tl);
 
         scaffold.
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), statusLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), statusLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), statusValue).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), startButton).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), stopButton).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), descriptionLabel).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), sizeLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), descriptionLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), descriptionValue).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), sizeLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), sizeValue).
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), new Label(" ")).
         add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), taskDataLabel).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), minTimeLabel).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), maxTimeLabel).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), avgTimeLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), minTimeLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), minTimeValue).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), maxTimeLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), maxTimeValue).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), avgTimeLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), avgTimeValue).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), deleteButton).
         add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), editButton);
     }
@@ -98,14 +110,51 @@ public class InfoPageUI {
     private void initData() {
 
         scaffold.setTitle("Current Task: " + currentTask.name);
-        statusLabel.setText("Activity status: " + currentTask.isRunning);
-        descriptionLabel.setText("Description: "+ currentTask.description);
-        sizeLabel.setText("size: "+ currentTask.size);
-
-        minTimeLabel.setText("Min time: "+ currentTask.getMinDuration());
-        maxTimeLabel.setText("Max time: "+ durationToTimePassed(currentTask.getMaxDuration()));
-        avgTimeLabel.setText("Avg time: "+ durationToTimePassed(currentTask.getAvgDuration()));
+        updateValues();
     }
+
+    public void updateValues()
+    {
+        updateStatus();
+        updateDescription();
+        updateSize();
+        updateMinTimeValue();
+        updateMaxTimeValue();
+        updateAvgTimeValue();
+    }
+
+    public void updateStatus()
+    {
+        statusValue.setText(currentTask.isRunning);
+    }
+
+    public void updateDescription()
+    {
+        descriptionValue.setText(currentTask.description);
+    }
+
+    public void updateSize()
+    {
+        sizeValue.setText(currentTask.size);
+    }
+
+    public void updateMinTimeValue()
+    {
+        minTimeValue.setText(durationToTimePassed(currentTask.getMinDuration()));
+    }
+
+    public void updateMaxTimeValue()
+    {
+        maxTimeValue.setText(durationToTimePassed(currentTask.getMaxDuration()));
+    }
+
+    public void updateAvgTimeValue()
+    {
+        avgTimeValue.setText(durationToTimePassed(currentTask.getAvgDuration()));
+    }
+
+
+
 
     private String durationToTimePassed(Date time){
         DateFormat format = new SimpleDateFormat("hh:mm:ss");
