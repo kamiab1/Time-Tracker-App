@@ -37,33 +37,39 @@ public class EditPageUI
     }
 
     private void updateAction() {
-//        String nameText = taskName.getText();
+        String nameText = taskName.getText();
         String descriptionText = taskDescription.getText();
         String taskSizeText = taskSize.getText();
 
-        Task newTask = currentTask;
+        Task newTask = null;
+        try {
+            newTask = (Task) currentTask.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         System.out.print("before to change " + newTask.name);
-//        if (!nameText.equals("")) {
-//            System.out.print("hereee");
-//            newTask.name = nameText;
-//        }
+        if (!nameText.equals("")) {
+            System.out.print("hereee");
+            newTask.name = nameText;
+        }
         if (!taskSizeText.equals("")) {
             newTask.size = taskSizeText;
         }
         if (!descriptionText.equals("")) {
             newTask.description = descriptionText;
         }
-        System.out.print("\n about to change " + newTask.name);
+        System.out.print("\n about to change new task" + newTask.name);
+        System.out.print("\n about to change old task" + currentTask.name);
         storage.editTask(newTask, currentTask);
 
         currentTask = newTask;
-       // backBtn();
+
         scaffold.show();
         clearFields();
     }
 
     private void clearFields() {
-        //taskName.clear();
+        taskName.clear();
         taskDescription.clear();
         taskSize.clear();
     }

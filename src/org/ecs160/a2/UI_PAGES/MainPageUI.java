@@ -144,7 +144,7 @@ public class MainPageUI
 
         //Label duration = new CustomLabel().createForFont("time: " + eachTask.description);
         // TODO: change
-        Label duration = new Label("time: " + "3:23:05");
+        Label duration = new Label("time: " + eachTask.getTotalDuration());
         duration.setUIID(eachTask.name + "duration");
         duration.getStyle().setBgTransparency(255, true);
         duration.getStyle().setFgColor(0x000000);

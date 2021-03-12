@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-public class Task {
+public class Task implements Cloneable {
     public String name;
     public String description = "No decription";
     public String isRunning = "false";
@@ -23,6 +23,11 @@ public class Task {
         this.isRunning = map.get("isRunning");
         this.size = map.get("size");
         this.timeWindowList = parseTimeWindow(timeList);
+    }
+
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 
     private List<TimeWindow> parseTimeWindow(List<String> timeList) {
@@ -43,11 +48,16 @@ public class Task {
             if (!hasStarted.get()) {
                 hasStarted.set(true);
                 timeWindow.start(eachTime);
+                System.out.print("\n each window is 1 : "+ eachTime);
             } else {
                 hasStarted.set(false);
                 timeWindow.end(eachTime);
                 windowList.add(timeWindow);
             }
+        });
+
+        windowList.forEach( timeWindow1 -> {
+            System.out.print("\n each window is 2: "+ timeWindow1.getStart());
         });
 
         return windowList;
@@ -64,16 +74,22 @@ public class Task {
     /*************** Public ****************/
 
 
-    public List<TimeWindow> getTimeWindowList() {
-        return timeWindowList;
-    }
+    public String getTotalDuration() {
 
-    public Date getTotalDuration() {
-        long totalTime = 0;
-        for (TimeWindow timeWindow : timeWindowList) {
-            totalTime = totalTime + timeWindow.getDuration().getTime();
+        if (timeWindowList.size() > 1) {
+           TimeWindow first = timeWindowList.get(0);
+           TimeWindow last = timeWindowList.get(timeWindowList.size() -1);
+
+           TimeWindow timeWindow = new TimeWindow();
+           System.out.print("\nFIRST "+ first.getStart());
+           System.out.print("\nEND "+ last.getEnd());
+           timeWindow.start(first.getStart());
+           timeWindow.end(last.getEnd());
+
+           return durationToTimePassed(timeWindow.getDuration());
         }
-        return new Date(totalTime);
+
+        else return "0";
     }
 
     public Date getMinDuration() {
@@ -96,7 +112,12 @@ public class Task {
             return new Date();
         }
         else  {
-            return sort().get(sort().size() -1).getDuration();
+            Date d = sort().get(sort().size() -1).getDuration();
+            sort().forEach( timeWindow -> {
+                System.out.print("\n each time is " + timeWindow.getStart());
+            });
+
+            return d ;
         }
     }
 
@@ -134,8 +155,14 @@ public class Task {
     private List<TimeWindow> sort() {
         if (sorted == null) {
             sorted = timeWindowList;
-            sorted.sort(Comparator.comparing(TimeWindow::getDuration));
+            sorted.sort((a, b) -> a.getDuration().compareTo(b.getDuration()));
+            //sorted.sort(Comparator.comparing(TimeWindow::getDuration));
         }
         return sorted;
+    }
+
+    private String durationToTimePassed(Date time){
+        DateFormat format = new SimpleDateFormat("hh:mm:ss");
+        return format.format(time);
     }
 }

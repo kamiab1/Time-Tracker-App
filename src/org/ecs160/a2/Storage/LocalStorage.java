@@ -62,6 +62,7 @@ public class LocalStorage {
     }
 
     public void editTask(Task newTask, Task oldTask) {
+        copyTaskTimeList(newTask, oldTask);
         deleteTask(oldTask);
         saveTaskOnDisk(newTask);
         addToTaskNameList(newTask.name);
@@ -81,7 +82,6 @@ public class LocalStorage {
         saveTaskOnDisk(task);
         addToTaskTimeList(task.name);
     }
-
 
     public void stopTask(Task task) {
         if (!getTask(task.name).getIsRunning()) {
@@ -110,6 +110,15 @@ public class LocalStorage {
         String path = taskName + "time";
         Storage.getInstance().writeObject(path, TimeListVector);
     }
+
+    private void copyTaskTimeList(Task newTask, Task oldTask) {
+        List<String> oldTimeList = getTaskTimeList(oldTask.name);
+        Vector TimeListVector = new Vector();
+        TimeListVector.addElement(oldTimeList);
+        String path = newTask.name + "time";
+        Storage.getInstance().writeObject(path, TimeListVector);
+    }
+
 
     private List<String> getTaskTimeList(String taskName) {
         String path = taskName + "time";
