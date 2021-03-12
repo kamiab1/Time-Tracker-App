@@ -11,6 +11,7 @@ import org.ecs160.a2.Theme.CustomTheme;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 
 import static com.codename1.ui.CN.getCurrentForm;
@@ -254,8 +255,16 @@ public class InfoPageUI {
 
 
     private String durationToTimePassed(Date time){
-        DateFormat format = new SimpleDateFormat("hh:mm:ss");
-        return format.format(time);
+        SimpleDateFormat durationFormatter = new SimpleDateFormat("HH:mm:ss");
+        long totalTimeSec = time.getTime() / 1000;
+        long seconds = totalTimeSec % 60;
+        long minutes = (totalTimeSec/60) % 60;
+        long hours = ((totalTimeSec/60) / 60) % 24;
+        Date formattedDate = new Date();
+        formattedDate.setHours((int) hours);
+        formattedDate.setMinutes((int) minutes);
+        formattedDate.setSeconds((int) seconds);
+        return durationFormatter.format(formattedDate.getTime());
     }
 
     private void loadPreviousPage() {
