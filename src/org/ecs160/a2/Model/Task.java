@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class Task implements Cloneable {
@@ -33,31 +34,26 @@ public class Task implements Cloneable {
     private List<TimeWindow> parseTimeWindow(List<String> timeList) {
         List<TimeWindow> windowList = new ArrayList<TimeWindow>();
 
-        System.out.print("\ntime list is : "+ timeList);
-
         List<Date> allDatesList = timeList
                 .stream()
                 .map(this::parseTimeString)
                 .collect(Collectors.toList());
 
-        System.out.print("\n time AFTER is : "+ allDatesList);
         AtomicBoolean hasStarted = new AtomicBoolean(false);
-        TimeWindow timeWindow = new TimeWindow();
 
+        AtomicReference<Date> first = new AtomicReference<>(new Date());
         allDatesList.forEach(eachTime -> {
             if (!hasStarted.get()) {
                 hasStarted.set(true);
-                timeWindow.start(eachTime);
-                System.out.print("\n each window is 1 : "+ eachTime);
+                first.set(eachTime);
+
             } else {
                 hasStarted.set(false);
+                TimeWindow timeWindow = new TimeWindow();
+                timeWindow.start(first.get());
                 timeWindow.end(eachTime);
                 windowList.add(timeWindow);
             }
-        });
-
-        windowList.forEach( timeWindow1 -> {
-            System.out.print("\n each window is 2: "+ timeWindow1.getStart());
         });
 
         return windowList;
@@ -155,8 +151,8 @@ public class Task implements Cloneable {
     private List<TimeWindow> sort() {
         if (sorted == null) {
             sorted = timeWindowList;
-            sorted.sort((a, b) -> a.getDuration().compareTo(b.getDuration()));
-            //sorted.sort(Comparator.comparing(TimeWindow::getDuration));
+           // sorted.sort((a, b) -> a.getDuration().compareTo(b.getDuration()));
+            sorted.sort(Comparator.comparing(TimeWindow::getDuration));
         }
         return sorted;
     }

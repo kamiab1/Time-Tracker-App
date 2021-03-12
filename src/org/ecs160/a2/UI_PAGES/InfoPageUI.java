@@ -282,6 +282,7 @@ public class InfoPageUI {
     private void updateUI() {
         currentTask = storage.getTask(currentTask.name);
         setStatusText();
+        setAllText();
         scaffold.show();
     }
 
