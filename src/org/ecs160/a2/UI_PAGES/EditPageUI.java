@@ -30,7 +30,6 @@ public class EditPageUI
     }
 
 
-
     private void goBack() {
         InfoPageUI.infoPage.startUI(currentTask);
         stopUI();
@@ -47,9 +46,7 @@ public class EditPageUI
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        System.out.print("before to change " + newTask.name);
         if (!nameText.equals("")) {
-            System.out.print("hereee");
             newTask.name = nameText;
         }
         if (!taskSizeText.equals("")) {
@@ -58,12 +55,9 @@ public class EditPageUI
         if (!descriptionText.equals("")) {
             newTask.description = descriptionText;
         }
-        System.out.print("\n about to change new task" + newTask.name);
-        System.out.print("\n about to change old task" + currentTask.name);
+
         storage.editTask(newTask, currentTask);
-
         currentTask = newTask;
-
         scaffold.show();
         clearFields();
     }
@@ -73,8 +67,6 @@ public class EditPageUI
         taskDescription.clear();
         taskSize.clear();
     }
-
-
 
     private void setUpPageLayout(Task task) {
         scaffold = new Form("Editing Task: " + task.name, new BorderLayout());

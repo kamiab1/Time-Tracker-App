@@ -87,8 +87,6 @@ public class InfoPageUI {
 
     public void startUI(Task task) {
         currentTask = task;
-
-        System.out.print(" \n received data :" + currentTask.name);
         if(scaffold != null){
             initData(); // needs testing
             scaffold.show();
@@ -96,7 +94,6 @@ public class InfoPageUI {
         }
 
         scaffold = new Form("Summary", new BorderLayout());
-
         initLayout();
         initButtonListeners();
 
@@ -256,8 +253,6 @@ public class InfoPageUI {
     }
 
 
-
-
     private String durationToTimePassed(Date time){
         DateFormat format = new SimpleDateFormat("hh:mm:ss");
         return format.format(time);
@@ -271,15 +266,23 @@ public class InfoPageUI {
 
     /*Task Actions*/
     private void startCurrentTask() {
-
         storage.startTask(currentTask);
+        updateUI();
     }
+
     private void stopCurrentTask() {
         storage.stopTask(currentTask);
+        updateUI();
     }
     private void deleteCurrentTask() {
         storage.deleteTask(currentTask);
         loadPreviousPage();
+    }
+
+    private void updateUI() {
+        currentTask = storage.getTask(currentTask.name);
+        setStatusText();
+        scaffold.show();
     }
 
 
