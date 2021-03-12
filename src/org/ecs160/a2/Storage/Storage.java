@@ -44,8 +44,8 @@ public class Storage {
         localStorage.stopTask(task);
     }
 
-    public void addTask(Task task) {
-        localStorage.addTask(task);
+    public boolean addTask(Task task) {
+        return localStorage.addTask(task);
     }
 
     public void editTask(Task newTask, Task oldTask) {
