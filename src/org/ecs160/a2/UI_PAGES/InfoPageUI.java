@@ -139,7 +139,7 @@ public class InfoPageUI {
     private PrimaryThemeContainer createStatusContainer()
     {
         PrimaryThemeContainer statusContainer =
-                new PrimaryThemeContainer(BoxLayout.xRight(), scaffold);
+                new PrimaryThemeContainer(BoxLayout.xCenter(), scaffold);
         statusContainer.add(statusValue);
         return statusContainer;
     }
