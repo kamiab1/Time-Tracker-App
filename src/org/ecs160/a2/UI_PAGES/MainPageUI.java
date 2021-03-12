@@ -10,7 +10,11 @@ import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
 import org.ecs160.a2.Theme.CustomTheme;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
 import static com.codename1.ui.CN.*;
 
 public class MainPageUI
@@ -139,7 +143,7 @@ public class MainPageUI
 
     private Label makeDurationLabel(Task eachTask) {
 
-        Label duration = new Label("Duration: " + eachTask.getTotalDuration());
+        Label duration = new Label("Duration: " + durationToTimePassed(eachTask.getTotalDuration()));
         duration.setUIID(eachTask.name + "duration");
         duration.getStyle().setBgTransparency(255, true);
         duration.getStyle().setFgColor(0x000000);
@@ -148,6 +152,13 @@ public class MainPageUI
     }
 
 
+    /*************** Helper ****************/
+
+    private String durationToTimePassed(Date time){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.format(time.getTime());
+    }
 
     /*************** Clean up ****************/
 

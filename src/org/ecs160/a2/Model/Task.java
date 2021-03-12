@@ -13,8 +13,7 @@ public class Task implements Cloneable {
     public String description = "No decription";
     public String isRunning = "false";
     public String size = "No size";
-    public Date startTime = new Date();
-    public Date endTime = new Date();
+    private long totalLongDuration = 0;
     private List<TimeWindow> timeWindowList = new ArrayList<TimeWindow>();
     private List<TimeWindow> sorted = null;
 
@@ -51,15 +50,13 @@ public class Task implements Cloneable {
                 TimeWindow timeWindow = new TimeWindow();
                 timeWindow.start(first.get());
                 timeWindow.end(eachTime);
+                totalLongDuration += timeWindow.getDuration().getTime();
                 windowList.add(timeWindow);
             }
         });
 
-        setFirstAndLast(windowList);
-
         return windowList;
     }
-
 
 
 
@@ -72,13 +69,6 @@ public class Task implements Cloneable {
 
     /*************** Public ****************/
 
-
-    public String getTotalDuration() {
-        TimeWindow timeWindow = new TimeWindow();
-        timeWindow.start(startTime);
-        timeWindow.end(endTime);
-        return durationToTimePassed(timeWindow.getDuration());
-    }
 
     public Date getMinDuration() {
         if (sort().isEmpty()) {
@@ -102,19 +92,19 @@ public class Task implements Cloneable {
         }
     }
 
-    // TODO : check for when size is 0
+    public Date getTotalDuration() {
+       return new Date(totalLongDuration);
+    }
+
 
     public Date getAvgDuration() {
         if (timeWindowList.size() == 0) {
             return new Date(0);
         }
-
-        long totalTime = 0, avgTime = 0;
-        for (TimeWindow timeWindow : timeWindowList) {
-            totalTime = totalTime + timeWindow.getDuration().getTime();
+        else {
+            long avgTime = totalLongDuration / timeWindowList.size();
+            return new Date(avgTime);
         }
-        avgTime = totalTime / timeWindowList.size();
-        return new Date(avgTime);
     }
 
 
@@ -133,19 +123,10 @@ public class Task implements Cloneable {
         }
     }
 
-    private void setFirstAndLast(List<TimeWindow> windowList) {
-        if (!windowList.isEmpty()) {
-            TimeWindow first = windowList.get(0);
-            TimeWindow last = windowList.get(windowList.size() -1);
-            startTime = first.getStart();
-            endTime = last.getEnd();
-        }
-    }
 
     private List<TimeWindow> sort() {
         if (sorted == null) {
             sorted = timeWindowList;
-           // sorted.sort((a, b) -> a.getDuration().compareTo(b.getDuration()));
             sorted.sort(Comparator.comparing(TimeWindow::getDuration));
         }
         return sorted;
