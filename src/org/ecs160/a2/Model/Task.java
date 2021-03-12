@@ -46,7 +46,6 @@ public class Task implements Cloneable {
             if (!hasStarted.get()) {
                 hasStarted.set(true);
                 first.set(eachTime);
-
             } else {
                 hasStarted.set(false);
                 TimeWindow timeWindow = new TimeWindow();
@@ -77,8 +76,6 @@ public class Task implements Cloneable {
            TimeWindow last = timeWindowList.get(timeWindowList.size() -1);
 
            TimeWindow timeWindow = new TimeWindow();
-           System.out.print("\nFIRST "+ first.getStart());
-           System.out.print("\nEND "+ last.getEnd());
            timeWindow.start(first.getStart());
            timeWindow.end(last.getEnd());
 
@@ -93,13 +90,11 @@ public class Task implements Cloneable {
             return new Date();
         }
         else  {
-            final Date d = sort()
+            return  sort()
                     .stream()
                     .findFirst()
                     .get()
                     .getDuration();
-            System.out.print("min time is " + d);
-            return d;
         }
     }
 
@@ -108,12 +103,7 @@ public class Task implements Cloneable {
             return new Date();
         }
         else  {
-            Date d = sort().get(sort().size() -1).getDuration();
-            sort().forEach( timeWindow -> {
-                System.out.print("\n each time is " + timeWindow.getStart());
-            });
-
-            return d ;
+            return sort().get(sort().size() -1).getDuration();
         }
     }
 
