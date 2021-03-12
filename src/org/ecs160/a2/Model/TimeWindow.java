@@ -8,13 +8,16 @@ public class TimeWindow {
     private Date end;
 
     public void start(Date date) {
+        System.out.print("\nstart is: "+ date);
         this.start = date;
     }
     public void end(Date date) {
+        System.out.print("\nend is: "+ date);
         this.end = date;
     }
 
     public Date getDuration () {
+
         return new Date(getStart().getTime() - getEnd().getTime());
     }
 

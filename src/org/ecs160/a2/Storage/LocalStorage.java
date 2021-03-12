@@ -5,10 +5,10 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import org.ecs160.a2.Model.Task;
-import org.ecs160.a2.Model.TimeWindow;
+
 
 public class LocalStorage {
-    private SimpleDateFormat formatter =
+    private final SimpleDateFormat formatter =
             new SimpleDateFormat("hh:mm:ss");
     /****************** public *******************/
 
@@ -74,6 +74,9 @@ public class LocalStorage {
     }
 
     public void startTask(Task task) {
+        if (getTask(task.name).getIsRunning()) {
+            return; // cant start if its already running
+        }
         task.isRunning = "true";
         saveTaskOnDisk(task);
         addToTaskTimeList(task.name);
@@ -81,6 +84,9 @@ public class LocalStorage {
 
 
     public void stopTask(Task task) {
+        if (!getTask(task.name).getIsRunning()) {
+            return; // cant STOP if its already STOPED
+        }
         task.isRunning = "false";
         saveTaskOnDisk(task);
         addToTaskTimeList(task.name);
@@ -108,7 +114,6 @@ public class LocalStorage {
     private List<String> getTaskTimeList(String taskName) {
         String path = taskName + "time";
         Vector TimeListVector = (Vector)Storage.getInstance().readObject(path);
-        //System.out.print(TimeListVector);
         if (TimeListVector == null || TimeListVector.isEmpty()) {
             return new ArrayList<String>();
         } else {
@@ -170,7 +175,7 @@ public class LocalStorage {
         Storage.getInstance().deleteStorageFile(name);
     }
     private void deleteTaskTimeList(String name) {
-        String path = name + "path";
+        String path = name + "time";
         Storage.getInstance().deleteStorageFile(path);
     }
 

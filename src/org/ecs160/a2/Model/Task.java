@@ -28,11 +28,14 @@ public class Task {
     private List<TimeWindow> parseTimeWindow(List<String> timeList) {
         List<TimeWindow> windowList = new ArrayList<TimeWindow>();
 
+        System.out.print("\ntime list is : "+ timeList);
+
         List<Date> allDatesList = timeList
                 .stream()
                 .map(this::parseTimeString)
                 .collect(Collectors.toList());
 
+        System.out.print("\n time AFTER is : "+ allDatesList);
         AtomicBoolean hasStarted = new AtomicBoolean(false);
         TimeWindow timeWindow = new TimeWindow();
 
@@ -78,11 +81,13 @@ public class Task {
             return new Date();
         }
         else  {
-            return sort()
+            final Date d = sort()
                     .stream()
                     .findFirst()
                     .get()
                     .getDuration();
+            System.out.print("min time is " + d);
+            return d;
         }
     }
 
@@ -117,7 +122,7 @@ public class Task {
     /******* private helpers *******/
     private Date parseTimeString(String time)  {
         DateFormat format =
-                new SimpleDateFormat("HH:mm:ss");
+                new SimpleDateFormat("hh:mm:ss");
         try {
             return format.parse(time);
         } catch (ParseException e) {
