@@ -148,7 +148,8 @@ public class Task implements Cloneable {
     }
 
     private String durationToTimePassed(Date time){
-        DateFormat format = new SimpleDateFormat("hh:mm:ss");
-        return format.format(time);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.format(time.getTime());
     }
 }

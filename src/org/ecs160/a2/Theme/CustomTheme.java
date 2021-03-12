@@ -4,6 +4,10 @@ import com.codename1.ui.Font;
 
 public class CustomTheme
 {
+    public static int UIPageColor = 0xe0f7fa;
+    public static int PrimaryThemeColor = 0xb3e5fc;
+    public static int SecondaryThemeColor = 0xe6ffff;
+
     public static final Font smallBoldSystemFont =
             Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD,
                                   Font.SIZE_SMALL);
@@ -31,7 +35,7 @@ public class CustomTheme
     public static final Font largeItalicSystemFont =
             Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_ITALIC,
                                   Font.SIZE_LARGE);
-    Font mediumItalicSystemFont =
-            Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_ITALIC,
-                                  Font.SIZE_MEDIUM);
+
+
+
 }

@@ -3,12 +3,13 @@ import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.table.TableLayout;
+import com.codename1.ui.layouts.Layout;
+import org.ecs160.a2.Custom_UI.PrimaryThemeContainer;
+import org.ecs160.a2.Custom_UI.SecondaryThemeContainer;
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
 import org.ecs160.a2.Theme.CustomTheme;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -19,20 +20,7 @@ import static com.codename1.ui.CN.getCurrentForm;
 
 public class InfoPageUI {
 
-    //TODO: This is used to style the page/groupings of data such as the Time
-    // Analysis and the name/desc/size
-    private class InfoPageContainer extends Container
-    {
-        InfoPageContainer()
-        {
-            super(BoxLayout.x());
-            super.getStyle().setBgColor(0x6ec6ff);
-            super.getStyle().setBgColor(0x002f6c);
-            super.getStyle().setBgTransparency(255);
-            super.setWidth(scaffold.getWidth());
-            super.setY(scaffold.getHeight());
-        }
-    }
+
 
     private class LabelTextComponent extends Label
     {
@@ -81,8 +69,6 @@ public class InfoPageUI {
     private final ValueTextComponent avgTimeValue = new ValueTextComponent("");
     private final Button startButton = new Button("Start");
     private final Button stopButton = new Button("Stop");
-    private final Button deleteButton = new Button("Delete");
-    private final Button editButton = new Button("Edit");
     private Task currentTask;
 
 
@@ -95,6 +81,7 @@ public class InfoPageUI {
         }
 
         scaffold = new Form("Summary", new BorderLayout());
+        scaffold.getStyle().setBgColor(CustomTheme.UIPageColor);
         initLayout();
         initButtonListeners();
 
@@ -126,29 +113,50 @@ public class InfoPageUI {
     public void initLayout()
     {
 
-        //"Current Task: " + currentTask.name, new BorderLayout()
-        TableLayout tl = new TableLayout(11, 1);
-        tl.setGrowHorizontally(true);
-        scaffold.setLayout(tl);
 
-        Container taskInfoContainer = createTaskInfoContainer();
-        Container taskDataContainer = createTaskDataContainer();
-        Container startStopContainer = createStartStopContainer();
+        //"Current Task: " + currentTask.name, new BorderLayout()
+        BoxLayout bl = new BoxLayout((BoxLayout.Y_AXIS));
+        scaffold.setLayout(bl);
+
+        PrimaryThemeContainer statusValueContainer = createStatusContainer();
+        PrimaryThemeContainer taskDataLabelContainer = createTaskDataLabelContainer();
+        SecondaryThemeContainer taskInfoContainer = createTaskInfoContainer();
+        SecondaryThemeContainer taskDataContainer = createTaskDataContainer();
+        SecondaryThemeContainer startStopContainer = createStartStopContainer();
 
         taskDataLabel.getStyle().setFont(CustomTheme.mediumBoldSystemFont);
         statusValue.getStyle().setFont(CustomTheme.mediumBoldSystemFont);
 
         scaffold.
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.RIGHT), statusValue).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), taskInfoContainer).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.CENTER), taskDataLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), taskDataContainer).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.CENTER), startStopContainer);
+        add(statusValueContainer).
+        add(taskInfoContainer).
+        add(taskDataLabelContainer).
+        add(taskDataContainer).
+        add(startStopContainer);
+
     }
 
-    private Container createTaskInfoContainer()
+    private PrimaryThemeContainer createStatusContainer()
     {
-        Container taskInfoContainer = new Container(BoxLayout.y());
+        PrimaryThemeContainer statusContainer =
+                new PrimaryThemeContainer(BoxLayout.xRight(), scaffold);
+        statusContainer.add(statusValue);
+        return statusContainer;
+    }
+
+    private PrimaryThemeContainer createTaskDataLabelContainer()
+    {
+        PrimaryThemeContainer taskDataLabelContainer =
+                new PrimaryThemeContainer(BoxLayout.xCenter(), scaffold);
+        taskDataLabelContainer.add(taskDataLabel);
+        return taskDataLabelContainer;
+    }
+
+
+    private SecondaryThemeContainer createTaskInfoContainer()
+    {
+        SecondaryThemeContainer taskInfoContainer =
+                new SecondaryThemeContainer(BoxLayout.y(), scaffold);
         taskInfoContainer.add(nameLabel);
         taskInfoContainer.add(nameValue);
         taskInfoContainer.add(descriptionLabel);
@@ -159,9 +167,10 @@ public class InfoPageUI {
         return taskInfoContainer;
     }
 
-    private Container createTaskDataContainer()
+    private SecondaryThemeContainer createTaskDataContainer()
     {
-        Container taskDataContainer = new Container(BoxLayout.y());
+        SecondaryThemeContainer taskDataContainer =
+                new SecondaryThemeContainer(BoxLayout.y(), scaffold);
         taskDataContainer.add(minTimeLabel);
         taskDataContainer.add(minTimeValue);
         taskDataContainer.add(maxTimeLabel);
@@ -172,9 +181,10 @@ public class InfoPageUI {
         return taskDataContainer;
     }
 
-    private Container createStartStopContainer()
+    private SecondaryThemeContainer createStartStopContainer()
     {
-        Container startStopButtonContainer = new Container(BoxLayout.x());
+        SecondaryThemeContainer startStopButtonContainer =
+                new SecondaryThemeContainer(BoxLayout.xCenter(), scaffold);
         startStopButtonContainer.add(startButton);
         startStopButtonContainer.add(stopButton);
 
@@ -197,6 +207,10 @@ public class InfoPageUI {
         setAllText();
     }
 
+    public void updateStatusText()
+    {
+        setStatusText();
+    }
 
     public void setAllText()
     {
@@ -256,15 +270,8 @@ public class InfoPageUI {
 
     private String durationToTimePassed(Date time){
         SimpleDateFormat durationFormatter = new SimpleDateFormat("HH:mm:ss");
-        long totalTimeSec = time.getTime() / 1000;
-        long seconds = totalTimeSec % 60;
-        long minutes = (totalTimeSec/60) % 60;
-        long hours = ((totalTimeSec/60) / 60) % 24;
-        Date formattedDate = new Date();
-        formattedDate.setHours((int) hours);
-        formattedDate.setMinutes((int) minutes);
-        formattedDate.setSeconds((int) seconds);
-        return durationFormatter.format(formattedDate.getTime());
+        durationFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return durationFormatter.format(time.getTime());
     }
 
     private void loadPreviousPage() {
