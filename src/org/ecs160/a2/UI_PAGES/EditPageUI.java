@@ -1,7 +1,6 @@
 package org.ecs160.a2.UI_PAGES;
 
 import com.codename1.ui.*;
-import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Storage.Storage;
@@ -26,7 +25,7 @@ public class EditPageUI
         }
         setUpPageLayout(task);
         setUpButtons();
-        initBackButton();
+        ToolbarInitializer.initBackButton(scaffold, (b) -> goBack());
         scaffold.show();
     }
 
@@ -37,7 +36,7 @@ public class EditPageUI
         stopUI();
     }
 
-    private void updateBtn() {
+    private void updateAction() {
 //        String nameText = taskName.getText();
         String descriptionText = taskDescription.getText();
         String taskSizeText = taskSize.getText();
@@ -87,7 +86,7 @@ public class EditPageUI
         taskName = new TextField("", "Re-name", 20, TextArea.ANY);
         taskDescription = new TextField("", "Description", 40, TextArea.ANY);
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
-        Button updateButton = new Button("update");
+        Button updateButton = new Button("Update");
 
         scaffold
                 .add(taskName)
@@ -95,7 +94,7 @@ public class EditPageUI
                 .add(taskSize)
                 .add(updateButton);
 
-        updateButton.addActionListener((e) -> updateBtn());
+        updateButton.addActionListener((e) -> updateAction());
     }
 
     public void stopUI() {
@@ -106,21 +105,4 @@ public class EditPageUI
         }
     }
 
-    /*TODO: Abstract this method into ToolBarUI.
-    We need to find out how to pass in the back() function as an argument in
-    order to abstract this.
-     */
-    public void initBackButton()
-    {
-        Command backCommand = new Command("Back")
-        {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                goBack();
-            }
-        };
-
-        Toolbar toolbar = scaffold.getToolbar();
-        toolbar.setBackCommand(backCommand);
-    }
 }

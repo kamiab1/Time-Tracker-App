@@ -34,7 +34,7 @@ public class CreateTaskPageUI
         }
         setUpPageLayout();
         setUpButtons();
-        initBackButton();
+        ToolbarInitializer.initBackButton(scaffold, (b) -> goBack());
         scaffold.show();
     }
 
@@ -113,23 +113,6 @@ public class CreateTaskPageUI
         }
     }
 
-    /*TODO: Abstract this method into ToolBarUI.
-    We need to find out how to pass in the back() function as an argument in
-    order to abstract this.
-     */
-    public void initBackButton()
-    {
-        Command backCommand = new Command("Back")
-        {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                goBack();
-            }
-        };
-
-        Toolbar toolbar = scaffold.getToolbar();
-        toolbar.setBackCommand(backCommand);
-    }
 
 
 

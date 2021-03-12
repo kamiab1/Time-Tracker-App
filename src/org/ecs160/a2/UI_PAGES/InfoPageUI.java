@@ -2,39 +2,84 @@ package org.ecs160.a2.UI_PAGES;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.table.TableLayout;
-
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
+import org.ecs160.a2.Theme.CustomTheme;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 import static com.codename1.ui.CN.getCurrentForm;
 
 
 public class InfoPageUI {
 
-    public static InfoPageUI infoPage = new InfoPageUI();
+    //TODO: This is used to style the page/groupings of data such as the Time
+    // Analysis and the name/desc/size
+    private class InfoPageContainer extends Container
+    {
+        InfoPageContainer()
+        {
+            super(BoxLayout.x());
+            super.getStyle().setBgColor(0x6ec6ff);
+            super.getStyle().setBgColor(0x002f6c);
+            super.getStyle().setBgTransparency(255);
+            super.setWidth(scaffold.getWidth());
+            super.setY(scaffold.getHeight());
+        }
+    }
 
+    private class LabelTextComponent extends Label
+    {
+        LabelTextComponent(String text)
+        {
+            super(text);
+            super.getStyle().setFgColor(0x000000);
+            super.getStyle().setFont(CustomTheme.smallBoldSystemFont);
+        }
+    }
+
+    private class ValueTextComponent extends Label
+    {
+        ValueTextComponent(String text)
+        {
+            super(text);
+            super.getStyle().setFgColor(0x000000);
+            super.getStyle().setFont(CustomTheme.smallPlainSystemFont);
+        }
+    }
+
+    public static InfoPageUI infoPage = new InfoPageUI();
     private final Storage storage = Storage.instanse();
     private Form scaffold;
-    private final Label statusLabel = new Label("Activity status: ");
-    private final Label statusValue = new Label("");
+    private final LabelTextComponent
+            statusLabel = new LabelTextComponent("Status: ");
+    private final ValueTextComponent statusValue = new ValueTextComponent("");
+    private final LabelTextComponent nameLabel = new LabelTextComponent("Name: ");
+    private final ValueTextComponent nameValue = new ValueTextComponent("");
+    private final LabelTextComponent
+            descriptionLabel = new LabelTextComponent("Description: ");
+    private final ValueTextComponent
+            descriptionValue = new ValueTextComponent("");
+    private final LabelTextComponent sizeLabel = new LabelTextComponent("Size: ");
+    private final ValueTextComponent sizeValue = new ValueTextComponent("");
+    private final LabelTextComponent
+            taskDataLabel = new LabelTextComponent("Time Analysis");
+    private final LabelTextComponent
+            minTimeLabel = new LabelTextComponent("Min Time: ");
+    private final ValueTextComponent minTimeValue = new ValueTextComponent("");
+    private final LabelTextComponent
+            maxTimeLabel = new LabelTextComponent("Max Time: ");
+    private final ValueTextComponent maxTimeValue = new ValueTextComponent("");
+    private final LabelTextComponent
+            avgTimeLabel = new LabelTextComponent("Avg Time: ");
+    private final ValueTextComponent avgTimeValue = new ValueTextComponent("");
     private final Button startButton = new Button("Start");
     private final Button stopButton = new Button("Stop");
-    private final Label descriptionLabel = new Label("Description: ");
-    private final Label descriptionValue = new Label("");
-    private final Label sizeLabel = new Label("Size: ");
-    private final Label sizeValue = new Label("");
-    private final Label taskDataLabel = new Label("Task Data");
-    private final Label minTimeLabel = new Label("Min Time: ");
-    private final Label minTimeValue = new Label("");
-    private final Label maxTimeLabel = new Label("Max Time: ");
-    private final Label maxTimeValue = new Label("");
-    private final Label avgTimeLabel = new Label("Avg Time: ");
-    private final Label avgTimeValue = new Label("");
     private final Button deleteButton = new Button("Delete");
     private final Button editButton = new Button("Edit");
     private Task currentTask;
@@ -50,57 +95,98 @@ public class InfoPageUI {
             return;
         }
 
-        scaffold = new Form("Current Task: " + currentTask.name, new BorderLayout());
+        scaffold = new Form("Summary", new BorderLayout());
 
-        setUpLayout();
-        setUpButtons();
-        initBackButton();
+        initLayout();
+        initButtonListeners();
+
+        Command editCommand = new Command("Edit")
+        {
+            public void actionPerformed(ActionEvent e) {
+                EditPageUI.editPage.startUI(currentTask);
+            }
+        };
+
+        Command deleteAction = new Command("Delete")
+        {
+            public void actionPerformed(ActionEvent e) {
+                deleteCurrentTask();
+            }
+        };
+
+        ToolbarInitializer.initBackButton(scaffold, (b) -> loadPreviousPage());
+        ToolbarInitializer.addTopRightAction(scaffold, editCommand);
+        ToolbarInitializer.addTopRightAction(scaffold, deleteAction);
+
         initData();
         scaffold.show();
     }
 
 
-
-
-
     /*************** UI functions ****************/
 
-    public void setUpLayout()
+    public void initLayout()
     {
 
         //"Current Task: " + currentTask.name, new BorderLayout()
-        TableLayout tl = new TableLayout(11, 2);
+        TableLayout tl = new TableLayout(11, 1);
         tl.setGrowHorizontally(true);
         scaffold.setLayout(tl);
 
+        Container taskInfoContainer = createTaskInfoContainer();
+        Container taskDataContainer = createTaskDataContainer();
+        Container startStopContainer = createStartStopContainer();
+
+        taskDataLabel.getStyle().setFont(CustomTheme.mediumBoldSystemFont);
+        statusValue.getStyle().setFont(CustomTheme.mediumBoldSystemFont);
+
         scaffold.
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), statusLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), statusValue).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), startButton).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), stopButton).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), descriptionLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), descriptionValue).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), sizeLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), sizeValue).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), new Label(" ")).
-        add(tl.createConstraint().horizontalSpan(2).horizontalAlign(Component.LEFT), taskDataLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), minTimeLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), minTimeValue).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), maxTimeLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), maxTimeValue).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), avgTimeLabel).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), avgTimeValue).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), deleteButton).
-        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), editButton);
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.RIGHT), statusValue).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), taskInfoContainer).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.CENTER), taskDataLabel).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.LEFT), taskDataContainer).
+        add(tl.createConstraint().horizontalSpan(1).horizontalAlign(Component.CENTER), startStopContainer);
+    }
+
+    private Container createTaskInfoContainer()
+    {
+        Container taskInfoContainer = new Container(BoxLayout.y());
+        taskInfoContainer.add(nameLabel);
+        taskInfoContainer.add(nameValue);
+        taskInfoContainer.add(descriptionLabel);
+        taskInfoContainer.add(descriptionValue);
+        taskInfoContainer.add(sizeLabel);
+        taskInfoContainer.add(sizeValue);
+
+        return taskInfoContainer;
+    }
+
+    private Container createTaskDataContainer()
+    {
+        Container taskDataContainer = new Container(BoxLayout.y());
+        taskDataContainer.add(minTimeLabel);
+        taskDataContainer.add(minTimeValue);
+        taskDataContainer.add(maxTimeLabel);
+        taskDataContainer.add(maxTimeValue);
+        taskDataContainer.add(avgTimeLabel);
+        taskDataContainer.add(avgTimeValue);
+
+        return taskDataContainer;
+    }
+
+    private Container createStartStopContainer()
+    {
+        Container startStopButtonContainer = new Container(BoxLayout.x());
+        startStopButtonContainer.add(startButton);
+        startStopButtonContainer.add(stopButton);
+
+        return startStopButtonContainer;
     }
 
 
-    private void setUpButtons() {
-        editButton.addActionListener((e) -> EditPageUI.editPage.startUI(currentTask));
-        deleteButton.addActionListener((e) -> deleteThisTask());
-        startButton.addActionListener((e) -> startThisTask());
-        stopButton.addActionListener((e) -> stopThisTask());
-
+    private void initButtonListeners() {
+        startButton.addActionListener((e) -> startCurrentTask());
+        stopButton.addActionListener((e) -> stopCurrentTask());
     }
 
 
@@ -109,46 +195,62 @@ public class InfoPageUI {
 
     private void initData() {
 
-        scaffold.setTitle("Current Task: " + currentTask.name);
-        updateValues();
+        scaffold.setTitle("Summary");
+        setAllText();
     }
 
-    public void updateValues()
+
+    public void setAllText()
     {
-        updateStatus();
-        updateDescription();
-        updateSize();
-        updateMinTimeValue();
-        updateMaxTimeValue();
-        updateAvgTimeValue();
+        setStatusText();
+        setNameText();
+        setDescriptionText();
+        setSizeText();
+        setMinTimeValueText();
+        setMaxTimeValueText();
+        setAvgTimeValueText();
     }
 
-    public void updateStatus()
+    public void setStatusText()
     {
-        statusValue.setText(currentTask.isRunning);
+        if (currentTask.getIsRunning())
+        {
+            statusValue.setText("Active");
+            statusValue.getStyle().setFgColor(0x00bf13);
+        }
+        else
+        {
+            statusValue.setText("Inactive");
+            statusValue.getStyle().setFgColor(0xbf0026);
+        }
     }
 
-    public void updateDescription()
+    public void setNameText()
+    {
+        nameValue.setText(currentTask.name);
+    }
+
+    public void setDescriptionText()
     {
         descriptionValue.setText(currentTask.description);
     }
 
-    public void updateSize()
+    public void setSizeText()
     {
         sizeValue.setText(currentTask.size);
     }
 
-    public void updateMinTimeValue()
+    public void setMinTimeValueText()
     {
         minTimeValue.setText(durationToTimePassed(currentTask.getMinDuration()));
     }
 
-    public void updateMaxTimeValue()
+    public void setMaxTimeValueText()
     {
         maxTimeValue.setText(durationToTimePassed(currentTask.getMaxDuration()));
     }
 
-    public void updateAvgTimeValue()
+    public void setAvgTimeValueText()
     {
         avgTimeValue.setText(durationToTimePassed(currentTask.getAvgDuration()));
     }
@@ -161,22 +263,23 @@ public class InfoPageUI {
         return format.format(time);
     }
 
-    private void goBack() {
+    private void loadPreviousPage() {
         MainPageUI.mainPage.startUI();
         stopUI();
     }
 
-    private void stopThisTask() {
-        storage.stopTask(currentTask);
-    }
 
-    private void startThisTask() {
+    /*Task Actions*/
+    private void startCurrentTask() {
+
         storage.startTask(currentTask);
     }
-
-    private void deleteThisTask() {
+    private void stopCurrentTask() {
+        storage.stopTask(currentTask);
+    }
+    private void deleteCurrentTask() {
         storage.deleteTask(currentTask);
-        goBack();
+        loadPreviousPage();
     }
 
 
@@ -188,23 +291,5 @@ public class InfoPageUI {
             ((Dialog) scaffold).dispose();
             scaffold = getCurrentForm();
         }
-    }
-
-    /*TODO: Abstract this method into ToolBarUI.
-    We need to find out how to pass in the back() function as an argument in
-    order to abstract this.
-     */
-    public void initBackButton()
-    {
-        Command backCommand = new Command("Back")
-        {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                goBack();
-            }
-        };
-
-        Toolbar toolbar = scaffold.getToolbar();
-        toolbar.setBackCommand(backCommand);
     }
 }
