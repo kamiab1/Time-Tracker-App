@@ -129,7 +129,7 @@ public class MainPageUI
 
         if (eachTask.getIsRunning()) {
             activity.setText("Active");
-            activity.getStyle().setFgColor(0x00bf13);
+            activity.getStyle().setFgColor(CustomTheme.ActiveThemeColor);
             activity.getStyle().setFont(CustomTheme.smallBoldSystemFont);
         }
         else {

@@ -2,6 +2,7 @@ package org.ecs160.a2.UI_PAGES;
 
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
@@ -19,6 +20,7 @@ public class EditPageUI
     private TextField taskName;
     private TextField taskDescription;
     private TextField taskSize;
+    private Label editStatusLabel;
     public void startUI(Task task) {
         currentTask = task;
         if(scaffold != null){
@@ -60,8 +62,20 @@ public class EditPageUI
 
         storage.editTask(newTask, currentTask);
         currentTask = newTask;
-        scaffold.show();
+
+        if (!nameText.equals("") || !taskSizeText.equals("") || !descriptionText.equals(""))
+        {
+            editStatusLabel.getStyle().setFgColor(CustomTheme.ActiveThemeColor);
+            editStatusLabel.setText("Edit Success!");
+        }
+        else
+        {
+            editStatusLabel.getStyle().setFgColor(CustomTheme.InactiveThemeColor);
+            editStatusLabel.setText("You must specify a field entry.");
+        }
+
         clearFields();
+        scaffold.show();
     }
 
     private void clearFields() {
@@ -89,11 +103,17 @@ public class EditPageUI
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button updateButton = new Button("Update");
 
+        editStatusLabel = new Label("");
+        editStatusLabel.getStyle().setFont(CustomTheme.smallBoldSystemFont);
+        Container statusLabelContainer = new Container(BoxLayout.xCenter());
+        statusLabelContainer.add(editStatusLabel);
+
         scaffold
                 .add(taskName)
                 .add(taskDescription)
                 .add(taskSize)
-                .add(updateButton);
+                .add(updateButton)
+                .add(statusLabelContainer);
 
         updateButton.addActionListener((e) -> updateAction());
     }

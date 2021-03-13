@@ -2,9 +2,11 @@ package org.ecs160.a2.UI_PAGES;
 
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.table.TableLayout;
 import org.ecs160.a2.Storage.Storage;
 import org.ecs160.a2.Model.Task;
+import org.ecs160.a2.Theme.CustomTheme;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +24,7 @@ public class CreateTaskPageUI
     private TextField taskName;
     private TextField taskDescription;
     private TextField taskSize;
+    private Label createStatusLabel;
     private Form current;
 
 
@@ -55,13 +58,19 @@ public class CreateTaskPageUI
         boolean addTaskStatus = storage.addTask(task);
         if (addTaskStatus == false)
         {
+            createStatusLabel.setText("");
             Dialog.show("Failed to create new task", "Task already exists or " +
                                                      "name was not specified.",
                         "OK", "Cancel");
         }
+        else
+        {
+            createStatusLabel.setText("Successfully added task!");
+        }
 
 
         clearFields();
+        scaffold.show();
     }
 
     private void clearFields() {
@@ -81,14 +90,8 @@ public class CreateTaskPageUI
 
     private void setUpPageLayout() {
         scaffold = new Form("Create a new Task", new BorderLayout());
-        TableLayout tl;
-        int spanButton = 1;
-        tl = new TableLayout(14, 1);
-        tl.setGrowHorizontally(true);
-        scaffold.setLayout(tl);
-        TableLayout.Constraint cn = tl.createConstraint();
-        cn.setHorizontalSpan(spanButton);
-        cn.setHorizontalAlign(Component.RIGHT);
+        BoxLayout bl = new BoxLayout(BoxLayout.Y_AXIS);
+        scaffold.setLayout(bl);
     }
 
     private void setUpButtons() {
@@ -97,10 +100,17 @@ public class CreateTaskPageUI
         taskSize = new TextField("", "Task Size", 20, TextArea.ANY);
         Button createButton = new Button("Create");
 
+        createStatusLabel = new Label("");
+        createStatusLabel.getStyle().setFont(CustomTheme.smallBoldSystemFont);
+        createStatusLabel.getStyle().setFgColor(CustomTheme.ActiveThemeColor);
+        Container statusLabelContainer = new Container(BoxLayout.xCenter());
+        statusLabelContainer.add(createStatusLabel);
+
         scaffold.add(taskName)
                 .add(taskDescription)
                 .add(taskSize)
-                .add(createButton);
+                .add(createButton)
+                .add(statusLabelContainer);
 
         createButton.addActionListener((e) -> createBtn());
     }

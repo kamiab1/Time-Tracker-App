@@ -3,7 +3,6 @@ import com.codename1.ui.*;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.layouts.Layout;
 import org.ecs160.a2.Custom_UI.PrimaryThemeContainer;
 import org.ecs160.a2.Custom_UI.SecondaryThemeContainer;
 import org.ecs160.a2.Storage.Storage;
@@ -227,12 +226,12 @@ public class InfoPageUI {
         if (currentTask.getIsRunning())
         {
             statusValue.setText("Active");
-            statusValue.getStyle().setFgColor(0x00bf13);
+            statusValue.getStyle().setFgColor(CustomTheme.ActiveThemeColor);
         }
         else
         {
             statusValue.setText("Inactive");
-            statusValue.getStyle().setFgColor(0xbf0026);
+            statusValue.getStyle().setFgColor(CustomTheme.InactiveThemeColor);
         }
     }
 
