@@ -36,6 +36,7 @@ public class EditPageUI
 
     private void goBack() {
         InfoPageUI.infoPage.startUI(currentTask);
+        editStatusLabel.setText("");
         stopUI();
     }
 

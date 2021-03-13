@@ -77,9 +77,11 @@ public class CreateTaskPageUI
         taskName.clear();
         taskDescription.clear();
         taskSize.clear();
+
     }
 
     private void goBack() {
+        createStatusLabel.setText("");
         MainPageUI.mainPage.startUI();
         stopUI();
     }
