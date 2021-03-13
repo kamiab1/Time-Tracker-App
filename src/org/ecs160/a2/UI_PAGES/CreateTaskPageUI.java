@@ -52,7 +52,14 @@ public class CreateTaskPageUI
         taskMap.put("endTime", new Date().toString());
         List<String> timeList = new ArrayList<String>();
         Task task = new Task(nameText,taskMap, timeList);
-        storage.addTask(task);
+        boolean addTaskStatus = storage.addTask(task);
+        if (addTaskStatus == false)
+        {
+            Dialog.show("Failed to create new task", "Task already exists or " +
+                                                     "name was not specified.",
+                        "OK", "Cancel");
+        }
+
 
         clearFields();
     }
