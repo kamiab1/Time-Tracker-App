@@ -202,7 +202,6 @@ public class InfoPageUI {
     /*************** General functions ****************/
 
     private void initData() {
-
         scaffold.setTitle("Summary");
         setAllText();
     }

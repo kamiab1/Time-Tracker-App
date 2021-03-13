@@ -1,6 +1,5 @@
 package org.ecs160.a2.UI_PAGES;
 
-import com.codename1.components.InteractionDialog;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.table.TableLayout;
@@ -53,13 +52,7 @@ public class CreateTaskPageUI
         taskMap.put("endTime", new Date().toString());
         List<String> timeList = new ArrayList<String>();
         Task task = new Task(nameText,taskMap, timeList);
-        boolean addTaskStatus = storage.addTask(task);
-        if (addTaskStatus == false)
-        {
-            Dialog.show("Failed to create new task", "Task already exists or " +
-                                                     "name was not specified.",
-                        "OK", "Cancel");
-        }
+        storage.addTask(task);
 
         clearFields();
     }

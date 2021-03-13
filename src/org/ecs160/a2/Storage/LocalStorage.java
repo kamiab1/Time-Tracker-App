@@ -50,16 +50,15 @@ public class LocalStorage {
 
     /******** SET ********/
 
-    public boolean addTask(Task task) {
+    public void addTask(Task task) {
 
         if (doesTaskExist(task.name) || task.name.equals("") ) {
             System.out.print("this task already exists \n");
-            return false;
+            return;
         }
 
         saveTaskOnDisk(task);
         addToTaskNameList(task.name);
-        return true;
     }
 
     public void editTask(Task newTask, Task oldTask) {

@@ -25,7 +25,7 @@ public class EditPageUI
             scaffold.show();
             return;
         }
-        setUpPageLayout(task);
+        setUpPageLayout();
         setUpButtons();
         ToolbarInitializer.initBackButton(scaffold, (b) -> goBack());
         scaffold.show();
@@ -70,8 +70,8 @@ public class EditPageUI
         taskSize.clear();
     }
 
-    private void setUpPageLayout(Task task) {
-        scaffold = new Form("Editing Task: " + task.name, new BorderLayout());
+    private void setUpPageLayout() {
+        scaffold = new Form("Edit", new BorderLayout());
         scaffold.getStyle().setBgColor(CustomTheme.UIPageColor);
         TableLayout tl;
         int spanButton = 1;
